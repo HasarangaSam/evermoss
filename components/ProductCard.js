@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function ProductCard({p}){const image=p.image||p.images?.[0]||'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=85';return <Link href={`/products/${p.slug}`} className="product-card"><img src={image} alt={p.name}/><div><span>{p.code}</span><h3>{p.name}</h3><b>Rs. {Number(p.price).toLocaleString()}</b></div></Link>}
