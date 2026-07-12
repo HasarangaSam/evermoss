@@ -1,54 +1,81 @@
-'use client';
+"use client";
 
-import { useMemo, useState } from 'react';
-import ProductCard from './ProductCard';
+import { useEffect, useMemo, useState } from "react";
+import ProductCard from "./ProductCard";
 
-export default function ProductGrid({ products }) {
-  const [order, setOrder] = useState('newest');
+export default function ProductGrid({ products = [] }) {
+  const [order, setOrder] = useState("newest");
   const [currentPage, setCurrentPage] = useState(1);
+
   const itemsPerPage = 6;
 
-  // 1. Sort the entire collection first
+  // Reset page when products change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [products]);
+
+  // Sort products
   const sorted = useMemo(() => {
-    return [...products].sort((a, b) => {
-      if (order === 'low') return a.price - b.price;
-      if (order === 'high') return b.price - a.price;
-      return 0; // newest/default (sorted by date on server)
-    });
+    const copy = [...products];
+
+    if (order === "low") {
+      return copy.sort((a, b) => Number(a.price) - Number(b.price));
+    }
+
+    if (order === "high") {
+      return copy.sort((a, b) => Number(b.price) - Number(a.price));
+    }
+
+    // Newest products first
+    return copy.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
   }, [products, order]);
 
-  // 2. Paginate the sorted results
+  // Pagination
   const totalPages = Math.ceil(sorted.length / itemsPerPage);
-  
+
   const paginatedProducts = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
+
     return sorted.slice(start, start + itemsPerPage);
   }, [sorted, currentPage]);
 
-  const handlePageChange = (pageNumber) => {
+  function handlePageChange(pageNumber) {
     setCurrentPage(pageNumber);
-    // Smooth scroll to the top of the collection grid
-    const intro = document.querySelector('.page-intro');
+
+    const intro = document.querySelector(".page-intro");
+
     if (intro) {
-      intro.scrollIntoView({ behavior: 'smooth' });
+      intro.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     }
-  };
+  }
 
   return (
     <>
       <div className="shop-toolbar">
         <p>
-          Showing {paginatedProducts.length} of {products.length} {products.length === 1 ? 'piece' : 'pieces'} to make a space feel special
+          Showing {paginatedProducts.length} of {products.length}{" "}
+          {products.length === 1 ? "piece" : "pieces"} to make a space feel
+          special
         </p>
+
         <label>
-          Sort by{' '}
+          Sort by{" "}
           <select
             value={order}
             onChange={(e) => {
               setOrder(e.target.value);
-              setCurrentPage(1); // Reset to page 1 on sort change
+              setCurrentPage(1);
             }}
           >
             <option value="newest">Latest additions</option>
@@ -58,11 +85,15 @@ export default function ProductGrid({ products }) {
         </label>
       </div>
 
-      <div className="grid full-grid">
-        {paginatedProducts.map((p) => (
-          <ProductCard key={p.slug} p={p} />
-        ))}
-      </div>
+      {paginatedProducts.length > 0 ? (
+        <div className="grid full-grid">
+          {paginatedProducts.map((product) => (
+            <ProductCard key={product.slug} p={product} />
+          ))}
+        </div>
+      ) : (
+        <div className="empty-state">No products available yet.</div>
+      )}
 
       {totalPages > 1 && (
         <div className="pagination">
@@ -74,18 +105,22 @@ export default function ProductGrid({ products }) {
           >
             &larr; Prev
           </button>
-          
+
           <div className="pagination-numbers">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`pagination-btn num-btn ${page === currentPage ? 'active' : ''}`}
-                aria-label={`Go to Page ${page}`}
-              >
-                {page}
-              </button>
-            ))}
+            {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+              (page) => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`pagination-btn num-btn ${
+                    currentPage === page ? "active" : ""
+                  }`}
+                  aria-label={`Go to Page ${page}`}
+                >
+                  {page}
+                </button>
+              ),
+            )}
           </div>
 
           <button

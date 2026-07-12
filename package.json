@@ -2,11 +2,13 @@
   "name": "sandasi",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "seed": "node scripts/seed.mjs"
+    "seed": "node scripts/seed.mjs",
+    "migrate:images": "node scripts/migrate-old-images.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +16,8 @@
   "description": "",
   "dependencies": {
     "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.10.0",
+    "dotenv": "^17.4.2",
     "jose": "^6.2.3",
     "lucide-react": "^1.24.0",
     "mongodb": "^7.5.0",
