@@ -1,10 +1,13 @@
-import { db } from "@/lib/db";
+import connectDB from "@/lib/mongoose";
+import Product from "@/models/Product";
+
 import { authorized } from "@/lib/auth";
+
 import { uploadImage, deleteImage } from "@/lib/cloudinaryHelpers";
 
-// ===============================
+// =================================
 // CREATE / UPDATE PRODUCT
-// ===============================
+// =================================
 
 export async function POST(req) {
   try {
@@ -19,9 +22,12 @@ export async function POST(req) {
       );
     }
 
+    await connectDB();
+
     const formData = await req.formData();
 
     const code = formData.get("code")?.trim();
+
     const name = formData.get("name")?.trim();
 
     const slug = (formData.get("slug") || name)
@@ -47,30 +53,27 @@ export async function POST(req) {
       );
     }
 
-    const collection = (await db()).collection("products");
+    // Find existing product
 
-    const oldProduct = await collection.findOne({
+    const oldProduct = await Product.findOne({
       slug,
     });
 
     let images = [];
 
-    // ===============================
-    // Existing Cloudinary Images
-    // ===============================
+    // Existing images
 
     const existingImages = formData.getAll("existingImages");
 
     for (const url of existingImages) {
       images.push({
         url,
+
         publicId: null,
       });
     }
 
-    // ===============================
-    // New Uploads
-    // ===============================
+    // New uploads
 
     const files = formData.getAll("images");
 
@@ -82,6 +85,7 @@ export async function POST(req) {
 
         images.push({
           url: uploaded.url,
+
           publicId: uploaded.publicId,
         });
       }
@@ -100,9 +104,7 @@ export async function POST(req) {
 
     images = images.slice(0, 4);
 
-    // ===============================
-    // Delete replaced images
-    // ===============================
+    // Delete old Cloudinary images
 
     if (oldProduct?.images) {
       const newIds = images.map((img) => img.publicId).filter(Boolean);
@@ -114,7 +116,7 @@ export async function POST(req) {
       }
     }
 
-    const product = {
+    const productData = {
       code,
 
       name,
@@ -127,8 +129,6 @@ export async function POST(req) {
 
       price,
 
-      // backwards compatibility
-
       image: images[0]?.url || "",
 
       images,
@@ -136,21 +136,16 @@ export async function POST(req) {
       updatedAt: new Date(),
     };
 
-    await collection.updateOne(
+    await Product.findOneAndUpdate(
       {
         slug,
       },
 
-      {
-        $set: product,
-
-        $setOnInsert: {
-          createdAt: new Date(),
-        },
-      },
+      productData,
 
       {
         upsert: true,
+        new: true,
       },
     );
 
@@ -158,7 +153,7 @@ export async function POST(req) {
       ok: true,
     });
   } catch (error) {
-    console.error("Failed to save product:", error);
+    console.error("Save product error:", error);
 
     return Response.json(
       {
@@ -171,28 +166,29 @@ export async function POST(req) {
   }
 }
 
-// ===============================
+// =================================
 // DELETE PRODUCT
-// ===============================
+// =================================
 
 export async function DELETE(req) {
   try {
     if (!(await authorized(req))) {
       return Response.json(
         {
-          error: "Unauthorized. Please login again.",
+          error: "Unauthorized",
         },
+
         {
           status: 401,
         },
       );
     }
 
+    await connectDB();
+
     const { slug } = await req.json();
 
-    const collection = (await db()).collection("products");
-
-    const product = await collection.findOne({
+    const product = await Product.findOne({
       slug,
     });
 
@@ -204,7 +200,7 @@ export async function DELETE(req) {
       }
     }
 
-    await collection.deleteOne({
+    await Product.deleteOne({
       slug,
     });
 
@@ -212,7 +208,7 @@ export async function DELETE(req) {
       ok: true,
     });
   } catch (error) {
-    console.error("Failed to delete product:", error);
+    console.error("Delete product error:", error);
 
     return Response.json(
       {

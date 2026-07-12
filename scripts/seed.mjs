@@ -1,5 +1,0 @@
-import { MongoClient } from 'mongodb';
-const uri = process.env.MONGODB_URI;
-if (!uri) throw new Error('Set MONGODB_URI before seeding.');
-const products = [{slug:'monstera-deliciosa',name:'Monstera Deliciosa',type:'Indoor plant',price:4500,description:'A sculptural tropical favourite with glossy, split leaves.',care:['Bright, indirect light','Water when top soil is dry','Easy to care for'],images:['https://images.unsplash.com/photo-1614594574699-1c0b9a1f77c5?auto=format&fit=crop&w=1000&q=85']},{slug:'peace-lily',name:'Peace Lily',type:'Indoor plant',price:2800,description:'Graceful deep-green foliage and timeless white blooms.',care:['Low to medium light','Keep soil lightly moist','Air-purifying'],images:['https://images.unsplash.com/photo-1593691509543-c55fb32e5cee?auto=format&fit=crop&w=1000&q=85']}];
-const client=new MongoClient(uri);await client.connect();await client.db().collection('products').bulkWrite(products.map(p=>({updateOne:{filter:{slug:p.slug},update:{$set:{...p,createdAt:new Date()}},upsert:true}})));await client.close();console.log('Seeded products');
