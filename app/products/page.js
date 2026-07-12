@@ -6,6 +6,9 @@ import { getProducts } from "@/lib/products";
 
 export const metadata = { title: "Products | Evermoss" };
 
+// Always fetch the latest products from the database
+export const dynamic = "force-dynamic";
+
 export default async function Products() {
   const products = await getProducts();
 
