@@ -1,2 +1,52 @@
-import Link from 'next/link';import {notFound}from 'next/navigation';import Header from '@/components/Header';import Footer from '@/components/Footer';import SocialButtons from '@/components/SocialButtons';import {getProduct}from '@/lib/products';
-export default async function Detail({params}){const p=await getProduct((await params).slug);if(!p)return notFound();const image=p.image||p.images?.[0];return <><Header/><main className="inner"><Link href="/products" className="back">← Back to collection</Link><section className="detail"><div className="single-product-image"><img src={image} alt={p.name}/></div><div className="detail-copy"><p className="eyebrow">{p.code}</p><h1>{p.name}</h1><h3>Rs. {Number(p.price).toLocaleString()}</h3><p className="product-description">{p.description}</p><div className="care"><h4>Arrangement details</h4><p>✦ Handcrafted with care</p>{p.customDesign&&<p>✦ Custom design available</p>}</div><a href={`https://wa.me/94720295492?text=${encodeURIComponent(`Hi Evermoss, I'm interested in ${p.code} | ${p.name}.`)}`} target="_blank" className="button">Send us a WhatsApp</a><SocialButtons compact/></div></section></main><Footer/></>}
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import SocialButtons from '@/components/SocialButtons';
+import ProductGallery from '@/components/ProductGallery';
+import { getProduct } from '@/lib/products';
+
+export default async function Detail({ params }) {
+  const p = await getProduct((await params).slug);
+  if (!p) return notFound();
+
+  // Support both new `images` array and legacy single `image` field
+  const productImages = p.images && p.images.length > 0 
+    ? p.images 
+    : (p.image ? [p.image] : []);
+
+  return (
+    <>
+      <Header />
+      <main className="inner">
+        <Link href="/products" className="back">← Back to collection</Link>
+        <section className="detail">
+          <ProductGallery images={productImages} name={p.name} />
+          
+          <div className="detail-copy">
+            <p className="eyebrow">{p.code}</p>
+            <h1>{p.name}</h1>
+            <h3>Rs. {Number(p.price).toLocaleString()}</h3>
+            <p className="product-description">{p.description}</p>
+            
+            <div className="care">
+              <h4>Arrangement details</h4>
+              <p>✦ Handcrafted with care</p>
+              {p.customDesign && <p>✦ Custom design available</p>}
+            </div>
+            
+            <a 
+              href={`https://wa.me/94720295492?text=${encodeURIComponent(`Hi Evermoss, I'm interested in ${p.code} | ${p.name}.`)}`} 
+              target="_blank" 
+              className="button"
+            >
+              Send us a WhatsApp
+            </a>
+            <SocialButtons compact />
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+}

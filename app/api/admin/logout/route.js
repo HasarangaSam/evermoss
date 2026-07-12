@@ -1,1 +1,8 @@
-export async function POST(){const r=Response.json({ok:true});r.cookies.set('evermoss_admin','',{path:'/',maxAge:0});return r}
+import { NextResponse } from 'next/server';
+
+export async function POST() {
+  const r = NextResponse.json({ ok: true });
+  r.cookies.set('evermoss_admin', '', { path: '/', maxAge: 0 });
+  return r;
+}
+

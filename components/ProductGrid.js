@@ -1,4 +1,103 @@
 'use client';
+
 import { useMemo, useState } from 'react';
 import ProductCard from './ProductCard';
-export default function ProductGrid({products}){const [order,setOrder]=useState('newest');const sorted=useMemo(()=>[...products].sort((a,b)=>order==='low'?a.price-b.price:order==='high'?b.price-a.price:0),[products,order]);return <><div className="shop-toolbar"><p>{products.length} {products.length===1?'piece':'pieces'} to make a space feel special</p><label>Sort by <select value={order} onChange={e=>setOrder(e.target.value)}><option value="newest">Latest additions</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></label></div><div className="grid full-grid">{sorted.map(p=><ProductCard key={p.slug} p={p}/>)}</div></>}
+
+export default function ProductGrid({ products }) {
+  const [order, setOrder] = useState('newest');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  // 1. Sort the entire collection first
+  const sorted = useMemo(() => {
+    return [...products].sort((a, b) => {
+      if (order === 'low') return a.price - b.price;
+      if (order === 'high') return b.price - a.price;
+      return 0; // newest/default (sorted by date on server)
+    });
+  }, [products, order]);
+
+  // 2. Paginate the sorted results
+  const totalPages = Math.ceil(sorted.length / itemsPerPage);
+  
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    return sorted.slice(start, start + itemsPerPage);
+  }, [sorted, currentPage]);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    // Smooth scroll to the top of the collection grid
+    const intro = document.querySelector('.page-intro');
+    if (intro) {
+      intro.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <>
+      <div className="shop-toolbar">
+        <p>
+          Showing {paginatedProducts.length} of {products.length} {products.length === 1 ? 'piece' : 'pieces'} to make a space feel special
+        </p>
+        <label>
+          Sort by{' '}
+          <select
+            value={order}
+            onChange={(e) => {
+              setOrder(e.target.value);
+              setCurrentPage(1); // Reset to page 1 on sort change
+            }}
+          >
+            <option value="newest">Latest additions</option>
+            <option value="low">Price: low to high</option>
+            <option value="high">Price: high to low</option>
+          </select>
+        </label>
+      </div>
+
+      <div className="grid full-grid">
+        {paginatedProducts.map((p) => (
+          <ProductCard key={p.slug} p={p} />
+        ))}
+      </div>
+
+      {totalPages > 1 && (
+        <div className="pagination">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+            className="pagination-btn arrow-btn"
+            aria-label="Previous Page"
+          >
+            &larr; Prev
+          </button>
+          
+          <div className="pagination-numbers">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`pagination-btn num-btn ${page === currentPage ? 'active' : ''}`}
+                aria-label={`Go to Page ${page}`}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => handlePageChange(currentPage + 1)}
+            className="pagination-btn arrow-btn"
+            aria-label="Next Page"
+          >
+            Next &rarr;
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
