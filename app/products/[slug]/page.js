@@ -37,12 +37,15 @@ export default async function Detail({ params }) {
             </div>
 
             <a
-              href={`https://wa.me/94720295492?text=${encodeURIComponent(`Hi Evermoss, I'm interested in ${p.code} | ${p.name}.`)}`}
+              href={`https://wa.me/94711056002?text=${encodeURIComponent(`Hi Evermoss, I'm interested in ${p.code} | ${p.name}.`)}`}
               target="_blank"
               className="button"
             >
               Send us a WhatsApp
             </a>
+            <Link href="/products" className="back-light">
+              ← Back to products
+            </Link>
             <SocialButtons compact />
           </div>
         </section>
