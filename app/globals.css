@@ -438,6 +438,8 @@ nav a:not(.nav-cta) {
 .admin-form input,
 .admin-form textarea,
 .admin-login input {
+  width: 100%;
+  max-width: 100%;
   border: 1px solid #d8ddd3;
   background: white;
   padding: 15px;
@@ -691,3 +693,5 @@ footer small {
     display: none;
   }
 }
+
+

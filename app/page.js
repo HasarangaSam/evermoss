@@ -224,9 +224,7 @@ export default async function Home() {
           <ScrollReveal className="reveal-fade-up">
             <div className="testimonials-header-centered">
               <p className="eyebrow">Kind words</p>
-
               <h2>Loved in little corners.</h2>
-
               <p className="testimonial-intro">
                 Every Evermoss arrangement carries a little story. Here are some
                 words from our happy customers.
@@ -234,37 +232,31 @@ export default async function Home() {
             </div>
           </ScrollReveal>
 
-          <div className="testimonial-showcase">
+          <div className="new-testimonial-grid">
             {testimonials.map((t, idx) => (
               <ScrollReveal
                 key={idx}
                 className="reveal-fade-up"
                 delay={idx * 120}
               >
-                <article className="testimonial-premium-card">
-                  <div className="quote-icon">“</div>
-
-                  <p className="testimonial-message">{t.text}</p>
-
-                  <div className="testimonial-divider"></div>
-
-                  <div className="testimonial-footer">
-                    <div className="testimonial-user">
+                <article className="square-testimonial-card">
+                  <div className="card-top-header">
+                    <div className="avatar-frame-round">
                       <img
                         src={t.image}
                         alt={t.name}
-                        className="testimonial-avatar"
                       />
-
-                      <div>
-                        <h4>{t.name}</h4>
-
-                        <span>{t.location}</span>
-                      </div>
                     </div>
-
-                    <div className="testimonial-stars">★★★★★</div>
+                    <div className="avatar-meta-details">
+                      <b>{t.name}</b>
+                      <small>{t.location}</small>
+                      <div className="testimonial-stars" style={{ color: '#8c9b3e', fontSize: '11px', letterSpacing: '1.5px', marginTop: '2px' }}>★★★★★</div>
+                    </div>
                   </div>
+
+                  <p className="testimonial-body-text">{t.text}</p>
+                  
+                  <div className="card-bottom-heart">♡</div>
                 </article>
               </ScrollReveal>
             ))}
