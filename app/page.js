@@ -1,2 +1,291 @@
-import Link from 'next/link';import Header from '@/components/Header';import Footer from '@/components/Footer';import ProductCard from '@/components/ProductCard';import {getProducts}from '@/lib/products';
-export default async function Home(){const products=await getProducts();return <><Header/><main><section className="hero floral-hero"><div><p className="eyebrow">Handcrafted floral décor</p><h1>Little details.<br/><em>Lovely spaces.</em></h1><p className="lead">Thoughtfully arranged floral décor, made to add warmth, colour and a little everyday joy to your favourite corners.</p><div className="actions"><Link href="/products" className="button">Explore the collection</Link><Link href="/contact" className="text-link">Custom arrangement →</Link></div></div><div className="hero-image"><img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1400&q=90" alt="Delicate floral arrangement"/></div></section><section className="promise"><div><b>01</b><h3>Handcrafted with care</h3><p>Every little arrangement is made with attention to its smallest details.</p></div><div><b>02</b><h3>Made for your home</h3><p>Beautiful accents for shelves, coffee tables and meaningful gifts.</p></div><div><b>03</b><h3>Yours, made personal</h3><p>Have an idea? We love creating custom arrangements with you.</p></div></section><section className="story floral-story"><div className="story-img"><img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=85" alt="Floral decor"/></div><div><p className="eyebrow">Made for little moments</p><h2>More than flowers in a room.</h2><p>Evermoss creates floral décor that brings a gentle, welcoming touch to the places you live and love. Each piece is designed to feel personal, lasting and full of charm.</p><Link href="/contact" className="text-link">Create something custom →</Link></div></section><section className="collection"><div className="section-heading"><div><p className="eyebrow">Handmade collection</p><h2>Find your favourite.</h2></div><Link href="/products" className="text-link">View all arrangements →</Link></div><div className="grid">{products.slice(0,3).map(p=><ProductCard p={p} key={p.slug}/>)}</div></section><section className="quote"><p>“A little bloom can brighten an entire space.”</p><span>— Evermoss</span></section><section className="testimonials"><p className="eyebrow">Kind words</p><h2>Loved in little corners.</h2><div className="testimonial-grid"><article><p>“Such a pretty arrangement — it made my coffee table feel instantly more special.”</p><b>— Nethmi, Gampaha</b></article><article><p>“Beautifully made and full of thoughtful details. It was the loveliest gift.”</p><b>— Shehani, Colombo</b></article></div></section><section className="testimonials custom-section"><p className="eyebrow">Let’s make something lovely</p><h2>Your space, your story.</h2><p className="custom-copy">Choose an arrangement from the collection or bring us an idea. We’ll help you make it yours.</p></section></main><Footer/></>}
+import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ProductCard from "@/components/ProductCard";
+import ScrollReveal from "@/components/ScrollReveal";
+import { getProducts } from "@/lib/products";
+import {
+  Sprout,
+  Leaf,
+  Gift,
+  Home as HomeIcon,
+  Building2,
+  Coffee,
+  Sparkles,
+  ChevronDown,
+} from "lucide-react";
+
+export default async function Home() {
+  const products = await getProducts();
+
+  const testimonials = [
+    {
+      text: "“Such a pretty arrangement — it made my coffee table feel instantly more special and brought a sense of peace to the room.”",
+      name: "Nethmi",
+      location: "Gampaha",
+      image: "/testimonials/sample.jpg",
+    },
+    {
+      text: "“Beautifully made and full of thoughtful details. It was the loveliest housewarming gift, my friends absolutely loved it.”",
+      name: "Shehani",
+      location: "Colombo",
+      image: "/testimonials/sample1.jpg",
+    },
+    {
+      text: "“I ordered custom arrangements for my office reception. It completely transformed the space and clients always compliment it.”",
+      name: "Daham",
+      location: "Kandy",
+      image: "/testimonials/sample3.jpeg",
+    },
+    {
+      text: "“The detail and craftsmanship are incredible. Highly recommend Evermoss for anyone looking to add high-quality botanical accents.”",
+      name: "Hasaranga",
+      location: "Negombo",
+      image: "/testimonials/sample2.jpeg",
+    },
+  ];
+
+  return (
+    <>
+      <Header />
+      <main className="home-main">
+        {/* Full Viewport Size Hero Image with NO content overlays */}
+        <section className="full-hero-showcase">
+          <img
+            src="/hero.jpg"
+            alt="Evermoss botanical plants showcase"
+            className="full-hero-bg-img"
+          />
+          <div className="hero-scroll-indicator">
+            <span className="scroll-text">Scroll to Discover</span>
+            <ChevronDown className="scroll-arrow-icon" size={24} />
+          </div>
+        </section>
+
+        {/* 1. Brand Intro Section */}
+        <section className="intro-info-section">
+          <ScrollReveal className="reveal-fade-up">
+            <div className="intro-container-card">
+              <div className="brand-logo-area centered">
+                <Sprout size={36} className="logo-leaf-icon" />
+                <h1 className="hero-brand-title">Evermoss</h1>
+                <div className="heart-divider">♡</div>
+              </div>
+
+              <h2 className="hero-tagline centered">
+                Natural & Handcrafted Plants
+              </h2>
+
+              <p className="hero-desc centered">
+                For homes, offices, cafés & special moments. Plants that bring
+                calm, warmth, and a touch of nature into your space.
+              </p>
+
+              {/* Custom Design Callout Banner */}
+              <div className="custom-designs-callout centered">
+                <Sparkles size={16} className="sparkle-icon" />
+                <span>Custom designs available for your space ✨</span>
+              </div>
+
+              <p className="hero-quote-text centered">
+                A little green, a little peace – made just for you.
+              </p>
+              <div className="heart-divider-small centered">♡</div>
+
+              <div className="hero-actions-container centered">
+                <Link href="/products" className="button primary-btn">
+                  Explore our products
+                </Link>
+                <Link href="/contact" className="text-link">
+                  Custom arrangement &rarr;
+                </Link>
+              </div>
+            </div>
+          </ScrollReveal>
+        </section>
+
+        {/* 2. Core Plant Selections Columns (Highlights Grid) */}
+        <section className="core-highlights-section">
+          <div className="highlights-grid-container">
+            <ScrollReveal className="reveal-fade-up" delay={100}>
+              <div className="highlight-column-card">
+                <div className="highlight-number">01</div>
+                <div className="highlight-icon-box">
+                  <Leaf size={24} />
+                </div>
+                <h3>Natural Plants</h3>
+                <p>
+                  Carefully selected organic indoor plants that add vitality,
+                  freshness, and purify the air in your room.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal className="reveal-fade-up" delay={200}>
+              <div className="highlight-column-card">
+                <div className="highlight-number">02</div>
+                <div className="highlight-icon-box">
+                  <Sprout size={24} />
+                </div>
+                <h3>Artificial Arrangements</h3>
+                <p>
+                  Premium, maintenance-free custom faux greens that retain their
+                  exact beauty indefinitely with zero effort.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal className="reveal-fade-up" delay={300}>
+              <div className="highlight-column-card">
+                <div className="highlight-number">03</div>
+                <div className="highlight-icon-box">
+                  <Gift size={24} />
+                </div>
+                <h3>Occasion Gifts</h3>
+                <p>
+                  Botanical accents packaged beautifully to express warmth,
+                  care, and thoughtfulness for those you cherish.
+                </p>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* 3. Brand Story Section */}
+        <section className="story-redesign-section">
+          <div className="story-split-grid">
+            <ScrollReveal
+              className="reveal-fade-up"
+              className="story-image-reveal"
+            >
+              <div className="story-img-container">
+                <img
+                  src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=85"
+                  alt="Botanical details arrangement"
+                />
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal className="reveal-fade-up" delay={150}>
+              <div className="story-text-container">
+                <p className="eyebrow">Made for daily peace</p>
+                <h2>More than just greens in a room.</h2>
+                <p>
+                  Evermoss crafts botanical accents and arrangements that
+                  breathe life into structural spaces. Each arrangement brings
+                  the soothing elements of nature inside to help you relax,
+                  breathe, and grow.
+                </p>
+                <div className="story-badge-floating">
+                  <span>Embrace nature in your daily life ♡</span>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* 5. Featured Products Grid */}
+        <section className="collection products-section-home">
+          <ScrollReveal className="reveal-fade-up">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">Featured Products</p>
+                <h2>Find your favourite.</h2>
+              </div>
+              <Link href="/products" className="text-link">
+                View all products &rarr;
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid">
+            {products.slice(0, 3).map((p, index) => (
+              <ScrollReveal
+                key={p.slug}
+                className="reveal-fade-up"
+                delay={index * 100}
+              >
+                <ProductCard p={p} />
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+
+        {/* 6. Quote Break */}
+        <section className="quote quote-section-redesign">
+          <ScrollReveal className="reveal-fade-up">
+            <p>“A little green, a little peace.”</p>
+            <span>— Evermoss</span>
+          </ScrollReveal>
+        </section>
+
+        {/* 7. Testimonials Section */}
+        <section className="testimonials testimonials-section-home">
+          <ScrollReveal className="reveal-fade-up">
+            <div className="testimonials-header-centered">
+              <p className="eyebrow">Kind words</p>
+
+              <h2>Loved in little corners.</h2>
+
+              <p className="testimonial-intro">
+                Every Evermoss arrangement carries a little story. Here are some
+                words from our happy customers.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="testimonial-showcase">
+            {testimonials.map((t, idx) => (
+              <ScrollReveal
+                key={idx}
+                className="reveal-fade-up"
+                delay={idx * 120}
+              >
+                <article className="testimonial-premium-card">
+                  <div className="quote-icon">“</div>
+
+                  <p className="testimonial-message">{t.text}</p>
+
+                  <div className="testimonial-divider"></div>
+
+                  <div className="testimonial-footer">
+                    <div className="testimonial-user">
+                      <img
+                        src={t.image}
+                        alt={t.name}
+                        className="testimonial-avatar"
+                      />
+
+                      <div>
+                        <h4>{t.name}</h4>
+
+                        <span>{t.location}</span>
+                      </div>
+                    </div>
+
+                    <div className="testimonial-stars">★★★★★</div>
+                  </div>
+                </article>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+        {/* 8. Final CTA Custom Order Section */}
+        <section className="testimonials custom-section final-cta-home">
+          <ScrollReveal className="reveal-fade-up">
+            <p className="eyebrow">Let’s create together</p>
+            <h2>Your space, your story.</h2>
+            <p className="custom-copy">
+              Choose a botanical design from our products list or share your own
+              idea. We'll help you make it yours.
+            </p>
+            <Link href="/contact" className="button primary-btn">
+              Request Custom Design
+            </Link>
+          </ScrollReveal>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+}

@@ -27,7 +27,7 @@ export default function Header() {
           Home
         </Link>
         <Link href="/products" className={isActive('/products') ? 'active' : ''}>
-          Collection
+          Products
         </Link>
         <Link href="/contact" className={isActive('/contact') ? 'active' : ''}>
           Contact
