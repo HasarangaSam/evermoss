@@ -742,7 +742,30 @@ nav a:not(.nav-cta).active::after {
 /* Core Plant Selections Section */
 .core-highlights-section {
   padding: 80px 6vw 110px;
-  background: var(--cream);
+
+  background: linear-gradient(180deg, #f8faf6 0%, var(--sage) 100%);
+
+  position: relative;
+}
+
+.core-highlights-section::before {
+  content: "❦";
+
+  position: absolute;
+
+  top: -14px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  color: var(--moss);
+
+  background: #f8faf6;
+
+  padding: 0 14px;
+
+  font-size: 18px;
 }
 
 .highlights-grid-container {
