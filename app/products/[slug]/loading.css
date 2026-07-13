@@ -1,27 +1,42 @@
-.skeleton-container {
+.loading-container {
   min-height: 100vh;
   display: flex;
-  gap: 20px;
-  padding: 40px;
   justify-content: center;
+  align-items: center;
+  background: white;
 }
 
-.skeleton-card {
-  width: 250px;
-  height: 320px;
-  border-radius: 16px;
-  background: linear-gradient(90deg, #eee 25%, #f8f8f8 50%, #eee 75%);
-
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
+.loader {
+  display: flex;
+  gap: 8px;
 }
 
-@keyframes loading {
-  from {
-    background-position: 200% 0;
+.loader span {
+  width: 14px;
+  height: 14px;
+  background: #111;
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.loader span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loader span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+    opacity: 0.5;
   }
 
-  to {
-    background-position: -200% 0;
+  40% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
