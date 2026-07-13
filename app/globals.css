@@ -367,7 +367,7 @@ nav a:not(.nav-cta) {
 }
 .back {
   display: block;
-  margin: 20px 6vw;
+  margin: 10px 6vw;
   color: #66755c;
   font-size: 14px;
 }
@@ -423,7 +423,7 @@ nav a:not(.nav-cta) {
   color: #5a685f;
 }
 .care {
-  margin: 20px 0;
+  margin: 2px 0;
   padding: 15px 0;
 }
 .care h4 {

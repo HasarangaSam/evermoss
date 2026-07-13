@@ -1,7 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Eye, Plus, X, Edit, Trash2, Lock, LogOut } from "lucide-react";
+import {
+  Eye,
+  Plus,
+  X,
+  Edit,
+  Trash2,
+  Lock,
+  LogOut,
+  MessageSquare,
+} from "lucide-react";
 
 const blank = {
   code: "",
@@ -25,6 +34,7 @@ export default function Admin() {
   // Dashboard states
   const [form, setForm] = useState(blank);
   const [items, setItems] = useState([]);
+  const [messagesCount, setMessagesCount] = useState(0);
   const [msg, setMsg] = useState("");
 
   const set = (key, value) =>
@@ -46,6 +56,7 @@ export default function Admin() {
       if (r.ok && data.authorized) {
         setIsAuthorized(true);
         load();
+        loadMessagesCount();
       } else {
         setIsAuthorized(false);
       }
@@ -53,6 +64,23 @@ export default function Admin() {
       console.error("Auth error:", error);
 
       setIsAuthorized(false);
+    }
+  }
+  async function loadMessagesCount() {
+    try {
+      const r = await fetch("/api/admin/messages");
+
+      if (r.ok) {
+        const data = await r.json();
+
+        const unreadCount = data.filter(
+          (message) => message.status === "new",
+        ).length;
+
+        setMessagesCount(unreadCount);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -398,6 +426,11 @@ export default function Admin() {
             View Storefront
           </a>
 
+          <a href="/admin/messages" className="admin-nav-link">
+            <MessageSquare size={16} />
+            Messages
+          </a>
+
           <button onClick={handleLogout} className="admin-logout-btn">
             <LogOut size={16} />
             Log Out
@@ -407,17 +440,14 @@ export default function Admin() {
 
       <div className="admin-stats-row">
         <div className="stat-card">
-          <span className="stat-label">Total Products</span>
-
-          <span className="stat-value">{items.length}</span>
+          {" "}
+          <span className="stat-label">Total Products</span>{" "}
+          <span className="stat-value">{items.length}</span>{" "}
         </div>
-
         <div className="stat-card">
-          <span className="stat-label">Custom Designs</span>
+          <span className="stat-label">Unread Messages</span>
 
-          <span className="stat-value">
-            {items.filter((p) => p.customDesign).length}
-          </span>
+          <span className="stat-value">{messagesCount}</span>
         </div>
 
         <div className="stat-card">
