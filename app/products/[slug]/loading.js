@@ -2,8 +2,10 @@ import "./loading.css";
 
 export default function Loading() {
   return (
-    <div className="loading-container">
-      <div className="spinner"></div>
+    <div className="skeleton-container">
+      <div className="skeleton-card"></div>
+      <div className="skeleton-card"></div>
+      <div className="skeleton-card"></div>
     </div>
   );
 }
