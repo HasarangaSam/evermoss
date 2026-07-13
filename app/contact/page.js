@@ -4,6 +4,7 @@ import ContactForm from "@/components/ContactForm";
 import SocialButtons from "@/components/SocialButtons";
 import ScrollReveal from "@/components/ScrollReveal";
 import { MessageSquare, Mail, MapPin } from "lucide-react";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const metadata = {
   title: "Contact | Evermoss",
@@ -31,6 +32,7 @@ export default function Contact() {
 
   return (
     <>
+      <ScrollToTop />
       <Header />
 
       <main className="inner">
@@ -93,11 +95,11 @@ export default function Contact() {
                 <div className="info-card-details">
                   <span>Our Location</span>
                   <a
-                    href="https://maps.google.com/?q=Kirindiwela,Gampaha"
+                    href="https://maps.google.com/?q=Gampaha"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Kirindiwela, Gampaha, Sri Lanka
+                    Gampaha, Sri Lanka
                   </a>
                   <p>Visits by appointment only.</p>
                 </div>
@@ -172,7 +174,7 @@ export default function Contact() {
             <iframe
               className="redesigned-map"
               title="Evermoss location"
-              src="https://www.google.com/maps?q=Kirindiwela,Gampaha&output=embed"
+              src="https://www.google.com/maps?q=Gampaha&output=embed"
               loading="lazy"
             />
           </div>

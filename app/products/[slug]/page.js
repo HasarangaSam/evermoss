@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SocialButtons from "@/components/SocialButtons";
 import ProductGallery from "@/components/ProductGallery";
-
+import ScrollToTop from "@/components/ScrollToTop";
 import { getProduct } from "@/lib/products";
 
 export default async function Detail({ params }) {
@@ -32,6 +32,7 @@ export default async function Detail({ params }) {
 
   return (
     <>
+      <ScrollToTop />
       <Header />
 
       <main className="inner">
