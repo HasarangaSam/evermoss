@@ -50,17 +50,20 @@ export default async function Home() {
       <Header />
       <main className="home-main">
         {/* Full Viewport Size Hero Image with NO content overlays */}
-        <section className="full-hero-showcase">
-          <img
-            src="/hero.png"
-            alt="Evermoss botanical plants showcase"
-            className="full-hero-bg-img"
-          />
-          <div className="hero-scroll-indicator">
-            <span className="scroll-text">Scroll to Discover</span>
-            <ChevronDown className="scroll-arrow-icon" size={24} />
-          </div>
-        </section>
+        <ScrollReveal className="reveal-fade-up">
+          <section className="full-hero-showcase">
+            <img
+              src="/hero.png"
+              alt="Evermoss botanical plants showcase"
+              className="full-hero-bg-img"
+            />
+
+            <div className="hero-scroll-indicator">
+              <span className="scroll-text">Scroll to Discover</span>
+              <ChevronDown className="scroll-arrow-icon" size={24} />
+            </div>
+          </section>
+        </ScrollReveal>
 
         {/* 1. Brand Intro Section */}
         <section className="intro-info-section">
