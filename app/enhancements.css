@@ -963,7 +963,6 @@ nav a:not(.nav-cta).active::after {
 }
 
 .square-testimonial-card {
-  aspect-ratio: 1.45 / 1; /* Wider aspect ratio for less height */
   background: white;
   border: 1px solid #e3eadc;
   padding: 30px; /* Reduced padding */
