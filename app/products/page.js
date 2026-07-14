@@ -28,8 +28,8 @@ export default async function Products() {
             </h1>
 
             <p>
-              Thoughtfully handcrafted pieces to bring warmth, colour and a
-              touch of nature into your home.
+              Thoughtfully handcrafted pieces to bring timeless beauty, warmth,
+              colour and a touch of nature into your home.
             </p>
           </div>
         </ScrollReveal>

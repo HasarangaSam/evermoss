@@ -13,6 +13,8 @@ import {
   Coffee,
   Sparkles,
   ChevronDown,
+  PhoneCall,
+  Truck,
 } from "lucide-react";
 
 export default async function Home() {
@@ -107,19 +109,19 @@ export default async function Home() {
           </ScrollReveal>
         </section>
 
-        {/* 2. Core Plant Selections Columns (Highlights Grid) */}
+        {/* 2. How It Works Section */}
         <section className="core-highlights-section">
           <div className="highlights-grid-container">
             <ScrollReveal className="reveal-fade-up" delay={100}>
               <div className="highlight-column-card">
                 <div className="highlight-number">01</div>
                 <div className="highlight-icon-box">
-                  <Leaf size={24} />
+                  <PhoneCall size={24} />
                 </div>
-                <h3>Natural Plants</h3>
+                <h3>Place Your Order</h3>
                 <p>
-                  Carefully selected organic indoor plants that add vitality,
-                  freshness, and purify the air in your room.
+                  Call or WhatsApp us to place your order. Share your preferred
+                  design with us.
                 </p>
               </div>
             </ScrollReveal>
@@ -130,10 +132,10 @@ export default async function Home() {
                 <div className="highlight-icon-box">
                   <Sprout size={24} />
                 </div>
-                <h3>Artificial Arrangements</h3>
+                <h3>Handcrafted With Care</h3>
                 <p>
-                  Premium, maintenance-free custom faux greens that retain their
-                  exact beauty indefinitely with zero effort.
+                  Your arrangement is carefully handcrafted with love and ready
+                  within 7 days.
                 </p>
               </div>
             </ScrollReveal>
@@ -142,12 +144,12 @@ export default async function Home() {
               <div className="highlight-column-card">
                 <div className="highlight-number">03</div>
                 <div className="highlight-icon-box">
-                  <Gift size={24} />
+                  <Truck size={24} />
                 </div>
-                <h3>Occasion Gifts</h3>
+                <h3>Delivered to Your Doorstep</h3>
                 <p>
-                  Botanical accents packaged beautifully to express warmth,
-                  care, and thoughtfulness for those you cherish.
+                  Once ready, your arrangement is carefully delivered within 2–3
+                  business days.
                 </p>
               </div>
             </ScrollReveal>
@@ -162,10 +164,7 @@ export default async function Home() {
               className="story-image-reveal"
             >
               <div className="story-img-container">
-                <img
-                  src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1200&q=85"
-                  alt="Botanical details arrangement"
-                />
+                <img src="./brand.png" alt="Botanical details arrangement" />
               </div>
             </ScrollReveal>
 

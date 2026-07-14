@@ -62,13 +62,13 @@ export default async function Detail({ params }) {
 
             <a
               href={`https://wa.me/94711056002?text=${encodeURIComponent(
-                `Hi Evermoss, I'm interested in ${p.code} | ${p.name}.`,
+                `Hi Evermoss, I would like to place an order for ${p.code} | ${p.name}.`,
               )}`}
               target="_blank"
               rel="noopener noreferrer"
               className="button"
             >
-              Send us a WhatsApp
+              Order via WhatsApp
             </a>
 
             <Link href="/products" className="back-light">
