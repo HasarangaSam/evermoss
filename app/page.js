@@ -52,7 +52,7 @@ export default async function Home() {
         {/* Full Viewport Size Hero Image with NO content overlays */}
         <section className="full-hero-showcase">
           <img
-            src="/hero.jpg"
+            src="/hero.png"
             alt="Evermoss botanical plants showcase"
             className="full-hero-bg-img"
           />
@@ -242,20 +242,27 @@ export default async function Home() {
                 <article className="square-testimonial-card">
                   <div className="card-top-header">
                     <div className="avatar-frame-round">
-                      <img
-                        src={t.image}
-                        alt={t.name}
-                      />
+                      <img src={t.image} alt={t.name} />
                     </div>
                     <div className="avatar-meta-details">
                       <b>{t.name}</b>
                       <small>{t.location}</small>
-                      <div className="testimonial-stars" style={{ color: '#8c9b3e', fontSize: '11px', letterSpacing: '1.5px', marginTop: '2px' }}>★★★★★</div>
+                      <div
+                        className="testimonial-stars"
+                        style={{
+                          color: "#8c9b3e",
+                          fontSize: "11px",
+                          letterSpacing: "1.5px",
+                          marginTop: "2px",
+                        }}
+                      >
+                        ★★★★★
+                      </div>
                     </div>
                   </div>
 
                   <p className="testimonial-body-text">{t.text}</p>
-                  
+
                   <div className="card-bottom-heart">♡</div>
                 </article>
               </ScrollReveal>
