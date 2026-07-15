@@ -277,7 +277,7 @@ export default async function Home() {
             </div>
           </ScrollReveal>
 
-          <div className="grid">
+          <div className="grid featured-products-grid">
             {products.slice(0, 3).map((p, index) => (
               <ScrollReveal
                 key={p.slug}

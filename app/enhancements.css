@@ -1064,6 +1064,38 @@ nav a:not(.nav-cta).active::after {
   background: white;
 }
 
+.featured-products-grid {
+  gap: 24px;
+}
+
+.featured-products-grid .product-card {
+  display: block;
+  border: 1px solid #cfd7c8;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(77, 94, 67, 0.08);
+  overflow: hidden;
+}
+
+.featured-products-grid .product-card img {
+  height: 320px;
+  object-fit: cover;
+}
+
+.featured-products-grid .product-card div {
+  padding: 18px 20px 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9f3 100%);
+}
+
+.featured-products-grid .product-card h3 {
+  font-size: 22px;
+  margin: 8px 0 6px;
+}
+
+.featured-products-grid .product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 34px rgba(18, 25, 15, 0.16);
+}
+
 .quote-section-redesign {
   padding: 95px 15%;
   background: var(--ink);
