@@ -4,7 +4,7 @@ import "./floral.css";
 import "./admin-products.css";
 
 export const metadata = {
-  metadataBase: new URL("https://www.evermoss.lk"),
+  metadataBase: new URL("https://evermoss.vercel.app"),
 
   title: {
     default: "Evermoss | For the love of green spaces",
