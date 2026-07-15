@@ -56,9 +56,13 @@ export async function POST(req) {
     }
 
     // Find existing product
-    const oldProduct = await Product.findOne({
-      slug,
-    });
+    const id = formData.get("_id");
+
+    let oldProduct = null;
+
+    if (id) {
+      oldProduct = await Product.findById(id);
+    }
 
     let images = [];
 
@@ -132,21 +136,25 @@ export async function POST(req) {
       updatedAt: new Date(),
     };
 
-    await Product.findOneAndUpdate(
-      {
-        slug,
-      },
+    let savedProduct;
 
-      productData,
-
-      {
-        upsert: true,
+    if (id) {
+      savedProduct = await Product.findByIdAndUpdate(id, productData, {
         new: true,
-      },
-    );
+      });
+    } else {
+      savedProduct = await Product.create(productData);
+    }
 
-    // Clear Next.js cache
+    // Clear cache
     revalidateTag("products");
+
+    if (oldProduct) {
+      // clear old slug page
+      revalidateTag(`product-${oldProduct.slug}`);
+    }
+
+    // clear new slug page
     revalidateTag(`product-${slug}`);
 
     return Response.json({
@@ -185,11 +193,9 @@ export async function DELETE(req) {
 
     await connectDB();
 
-    const { slug } = await req.json();
+    const { id } = await req.json();
 
-    const product = await Product.findOne({
-      slug,
-    });
+    const product = await Product.findById(id);
 
     if (product?.images) {
       for (const img of product.images) {
@@ -199,13 +205,13 @@ export async function DELETE(req) {
       }
     }
 
-    await Product.deleteOne({
-      slug,
-    });
+    await Product.findByIdAndDelete(id);
 
     // Clear Next.js cache
     revalidateTag("products");
-    revalidateTag(`product-${slug}`);
+    if (product) {
+      revalidateTag(`product-${product.slug}`);
+    }
 
     return Response.json({
       ok: true,

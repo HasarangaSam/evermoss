@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 const blank = {
+  _id: "",
   code: "",
   name: "",
   slug: "",
@@ -229,6 +230,8 @@ export default function Admin() {
 
     const formData = new FormData();
 
+    formData.append("_id", form._id);
+
     formData.append("code", form.code);
 
     formData.append("name", form.name);
@@ -280,7 +283,7 @@ export default function Admin() {
   // DELETE PRODUCT
   // ==========================
 
-  async function remove(slug) {
+  async function remove(id) {
     if (!confirm("Delete this product?")) return;
 
     try {
@@ -292,7 +295,7 @@ export default function Admin() {
         },
 
         body: JSON.stringify({
-          slug,
+          id,
         }),
       });
 
@@ -326,6 +329,8 @@ export default function Admin() {
     }
 
     setForm({
+      _id: p._id,
+
       code: p.code || "",
 
       name: p.name || "",
@@ -481,16 +486,18 @@ export default function Admin() {
                 <input
                   value={form.name}
                   onChange={(e) => {
-                    set("name", e.target.value);
+                    const newName = e.target.value;
 
-                    if (!form.slug) {
-                      set(
-                        "slug",
-                        e.target.value
-                          .toLowerCase()
-                          .replace(/[^a-z0-9]+/g, "-"),
-                      );
-                    }
+                    set("name", newName);
+
+                    set(
+                      "slug",
+                      newName
+                        .toLowerCase()
+                        .trim()
+                        .replace(/[^a-z0-9]+/g, "-")
+                        .replace(/^-|-$/g, ""),
+                    );
                   }}
                   required
                 />
@@ -632,7 +639,7 @@ export default function Admin() {
                   : p.images?.[0] || p.image;
 
               return (
-                <div key={p.slug} className="product-list-item">
+                <div key={p._id} className="product-list-item">
                   <div className="item-thumbnail">
                     <img src={img} alt={p.name} />
                   </div>
@@ -654,7 +661,7 @@ export default function Admin() {
 
                     <button
                       className="action-delete-btn"
-                      onClick={() => remove(p.slug)}
+                      onClick={() => remove(p._id)}
                     >
                       <Trash2 size={15} />
                     </button>

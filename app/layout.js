@@ -4,7 +4,7 @@ import "./floral.css";
 import "./admin-products.css";
 
 export const metadata = {
-  metadataBase: new URL("https://evermoss.vercel.app"),
+  metadataBase: new URL("https://evermoss.com.lk"),
 
   title: {
     default: "Evermoss | For the love of green spaces",
@@ -12,10 +12,11 @@ export const metadata = {
   },
 
   description:
-    "Evermoss creates beautiful artificial flower arrangements, home decor pieces, and thoughtful gifts designed to bring timeless beauty into every space.",
+    "Evermoss creates beautiful natural & artificial flower arrangements, home decor pieces, and thoughtful gifts designed to bring timeless beauty into every space.",
 
   keywords: [
     "Evermoss",
+    "natural flowers Sri Lanka",
     "artificial flowers Sri Lanka",
     "flower arrangements Sri Lanka",
     "home decor Sri Lanka",
