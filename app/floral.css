@@ -14,15 +14,16 @@
   min-width: 0;
 }
 .gallery-frame {
-  height: 540px;
+  height: 500px;
   position: relative;
-  background: #eee8df;
+  background: #f8f7f2;
 }
+
 .gallery-frame > img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 .gallery-arrow {
   position: absolute;
@@ -90,7 +91,7 @@ nav .nav-cta {
 }
 @media (max-width: 760px) {
   .gallery-frame {
-    height: 390px;
+    height: 360px;
   }
   .gallery-thumbs button {
     width: 62px;
