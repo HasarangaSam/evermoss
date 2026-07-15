@@ -4,7 +4,49 @@ import ProductGrid from "@/components/ProductGrid";
 import ScrollReveal from "@/components/ScrollReveal";
 import { getProducts } from "@/lib/products";
 
-export const metadata = { title: "Products | Evermoss" };
+export const metadata = {
+  title: "Natural & Artificial Flower Arrangements & Gifts | Evermoss",
+
+  description:
+    "Explore Evermoss handcrafted artificial flower arrangements, elegant home decor pieces, and thoughtful gifts designed to bring timeless beauty to every space.",
+
+  keywords: [
+    "artificial flowers Sri Lanka",
+    "flower arrangements Sri Lanka",
+    "home decor Sri Lanka",
+    "flower gifts",
+    "Evermoss products",
+  ],
+
+  openGraph: {
+    title: "Natural & Artificial Flower Arrangements & Gifts | Evermoss",
+
+    description:
+      "Discover beautiful handcrafted flower arrangements and decorative pieces from Evermoss.",
+
+    type: "website",
+
+    images: [
+      {
+        url: "/og-products.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Evermoss Flower Collection",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+
+    title: "Natural & Artificial Flower Arrangements & Gifts | Evermoss",
+
+    description:
+      "Discover beautiful handcrafted flower arrangements and decorative pieces from Evermoss.",
+
+    images: ["/og-products.jpg"],
+  },
+};
 
 // Cache page data and refresh every 60 seconds
 export const revalidate = 60;

@@ -5,6 +5,8 @@ import { authorized } from "@/lib/auth";
 
 import { uploadImage, deleteImage } from "@/lib/cloudinaryHelpers";
 
+import { revalidateTag } from "next/cache";
+
 // =================================
 // CREATE / UPDATE PRODUCT
 // =================================
@@ -54,7 +56,6 @@ export async function POST(req) {
     }
 
     // Find existing product
-
     const oldProduct = await Product.findOne({
       slug,
     });
@@ -62,19 +63,16 @@ export async function POST(req) {
     let images = [];
 
     // Existing images
-
     const existingImages = formData.getAll("existingImages");
 
     for (const url of existingImages) {
       images.push({
         url,
-
         publicId: null,
       });
     }
 
     // New uploads
-
     const files = formData.getAll("images");
 
     for (const file of files) {
@@ -85,7 +83,6 @@ export async function POST(req) {
 
         images.push({
           url: uploaded.url,
-
           publicId: uploaded.publicId,
         });
       }
@@ -105,7 +102,6 @@ export async function POST(req) {
     images = images.slice(0, 4);
 
     // Delete old Cloudinary images
-
     if (oldProduct?.images) {
       const newIds = images.map((img) => img.publicId).filter(Boolean);
 
@@ -149,6 +145,10 @@ export async function POST(req) {
       },
     );
 
+    // Clear Next.js cache
+    revalidateTag("products");
+    revalidateTag(`product-${slug}`);
+
     return Response.json({
       ok: true,
     });
@@ -177,7 +177,6 @@ export async function DELETE(req) {
         {
           error: "Unauthorized",
         },
-
         {
           status: 401,
         },
@@ -203,6 +202,10 @@ export async function DELETE(req) {
     await Product.deleteOne({
       slug,
     });
+
+    // Clear Next.js cache
+    revalidateTag("products");
+    revalidateTag(`product-${slug}`);
 
     return Response.json({
       ok: true,
