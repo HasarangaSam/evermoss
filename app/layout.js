@@ -2,6 +2,7 @@ import "./globals.css";
 import "./enhancements.css";
 import "./floral.css";
 import "./admin-products.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata = {
   metadataBase: new URL("https://evermoss.com.lk"),
@@ -79,6 +80,7 @@ export default function RootLayout({ children }) {
         }}
       >
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
