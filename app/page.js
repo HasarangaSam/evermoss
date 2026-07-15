@@ -9,13 +9,13 @@ import {
   Leaf,
   Gift,
   Home as HomeIcon,
-  Building2,
-  Coffee,
   Sparkles,
   ChevronDown,
   PhoneCall,
   Truck,
 } from "lucide-react";
+
+import Image from "next/image";
 
 export default async function Home() {
   const products = await getProducts();
@@ -54,9 +54,11 @@ export default async function Home() {
         {/* Full Viewport Size Hero Image with NO content overlays */}
         <ScrollReveal className="reveal-fade-up">
           <section className="full-hero-showcase">
-            <img
+            <Image
               src="/hero.png"
               alt="Evermoss botanical plants showcase"
+              fill
+              priority
               className="full-hero-bg-img"
             />
 
@@ -318,7 +320,13 @@ export default async function Home() {
                 <article className="square-testimonial-card">
                   <div className="card-top-header">
                     <div className="avatar-frame-round">
-                      <img src={t.image} alt={t.name} />
+                      <Image
+                        src={t.image}
+                        alt={t.name}
+                        width={80}
+                        height={80}
+                        loading="lazy"
+                      />
                     </div>
                     <div className="avatar-meta-details">
                       <b>{t.name}</b>
