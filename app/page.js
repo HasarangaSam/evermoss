@@ -101,9 +101,14 @@ export default async function Home() {
                 <Link href="/products" className="button primary-btn">
                   Explore our products
                 </Link>
-                <Link href="/contact" className="text-link">
+                <a
+                  href="https://wa.me/94711056002?text=Hi%20Evermoss!%20I'm%20interested%20in%20a%20custom%20arrangement."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-link"
+                >
                   Custom arrangement &rarr;
-                </Link>
+                </a>
               </div>
             </div>
           </ScrollReveal>
@@ -281,7 +286,7 @@ export default async function Home() {
               idea. We'll help you make it yours.
             </p>
             <Link href="/contact" className="button primary-btn">
-              Request Custom Design
+              Get in Touch
             </Link>
           </ScrollReveal>
         </section>

@@ -7,7 +7,9 @@ export default function Footer() {
       </div>
       <p>For the love of green spaces.</p>
       <SocialButtons compact />
-      <small>© {new Date().getFullYear()} Evermoss · Gampaha</small>
+      <small>
+        © {new Date().getFullYear()} Evermoss · Kirindiwela, Gampaha
+      </small>
     </footer>
   );
 }

@@ -95,11 +95,11 @@ export default function Contact() {
                 <div className="info-card-details">
                   <span>Our Location</span>
                   <a
-                    href="https://maps.google.com/?q=Gampaha"
+                    href="https://maps.google.com/?q=Kirindiwela,Gampaha"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Gampaha, Sri Lanka
+                    Kirindiwela, Gampaha, Sri Lanka
                   </a>
                   <p>Visits by appointment only.</p>
                 </div>
@@ -174,7 +174,7 @@ export default function Contact() {
             <iframe
               className="redesigned-map"
               title="Evermoss location"
-              src="https://www.google.com/maps?q=Gampaha&output=embed"
+              src="https://www.google.com/maps?q=Kirindiwela,Gampaha&output=embed"
               loading="lazy"
             />
           </div>
