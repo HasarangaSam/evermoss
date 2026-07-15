@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -22,10 +23,14 @@ export default function ProductGallery({ images = [], name }) {
   return (
     <div className="product-gallery">
       <div className="gallery-frame">
-        <img
+        <Image
           src={photos[active]}
           alt={`${name} image ${active + 1}`}
-          loading="eager"
+          width={1200}
+          height={900}
+          priority={active === 0}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          quality={85}
         />
 
         {photos.length > 1 && (
@@ -62,10 +67,14 @@ export default function ProductGallery({ images = [], name }) {
               onClick={() => setActive(index)}
               aria-label={`View photo ${index + 1}`}
             >
-              <img
+              <Image
                 src={image}
                 alt={`${name} thumbnail ${index + 1}`}
+                width={220}
+                height={220}
                 loading="lazy"
+                sizes="(max-width: 768px) 20vw, 10vw"
+                quality={70}
               />
             </button>
           ))}

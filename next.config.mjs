@@ -1,3 +1,20 @@
 import path from "path";
-const nextConfig = { turbopack: { root: path.resolve(".") } };
+
+const nextConfig = {
+  turbopack: { root: path.resolve(".") },
+  images: {
+    qualities: [75, 85],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+    ],
+  },
+};
+
 export default nextConfig;

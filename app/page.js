@@ -59,6 +59,7 @@ export default async function Home() {
               alt="Evermoss botanical plants showcase"
               fill
               priority
+              sizes="100vw"
               className="full-hero-bg-img"
             />
 

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function ProductCard({ p }) {
@@ -7,7 +8,15 @@ export default function ProductCard({ p }) {
 
   return (
     <Link href={`/products/${p.slug}`} className="product-card">
-      <img src={image} alt={p.name} loading="lazy" />
+      <Image
+        src={image}
+        alt={p.name}
+        width={800}
+        height={800}
+        loading="lazy"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        quality={80}
+      />
 
       <div>
         <span>{p.code}</span>
