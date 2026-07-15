@@ -161,7 +161,76 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* 3. Brand Story Section */}
+        {/* 3. Why Choose Evermoss Section */}
+        <section className="why-choose-section">
+          <ScrollReveal className="reveal-fade-up">
+            <div className="why-header">
+              <p className="eyebrow">Why Evermoss</p>
+              <h2>Designed with nature, made with care.</h2>
+              <p>
+                Every arrangement is thoughtfully created to bring warmth,
+                beauty, and a peaceful touch of nature into your everyday
+                spaces.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="why-grid">
+            <ScrollReveal className="reveal-fade-up" delay={100}>
+              <div className="why-card">
+                <div className="why-icon">
+                  <Sprout size={26} />
+                </div>
+                <h3>Handcrafted With Love</h3>
+                <p>
+                  Each botanical arrangement is carefully designed by hand with
+                  attention to every small detail.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal className="reveal-fade-up" delay={200}>
+              <div className="why-card">
+                <div className="why-icon">
+                  <Gift size={26} />
+                </div>
+                <h3>Perfect For Every Moment</h3>
+                <p>
+                  Beautiful gifts for birthdays, housewarmings, celebrations,
+                  and meaningful occasions.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal className="reveal-fade-up" delay={300}>
+              <div className="why-card">
+                <div className="why-icon">
+                  <HomeIcon size={26} />
+                </div>
+                <h3>Beautiful In Any Space</h3>
+                <p>
+                  Designed to enhance homes, offices, cafés, and interiors with
+                  natural elegance.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal className="reveal-fade-up" delay={400}>
+              <div className="why-card">
+                <div className="why-icon">
+                  <Truck size={26} />
+                </div>
+                <h3>Careful & Safe Delivery</h3>
+                <p>
+                  Safely packaged and delivered with care, so your arrangement
+                  arrives beautifully.
+                </p>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* 4. Brand Story Section */}
         <section className="story-redesign-section">
           <div className="story-split-grid">
             <ScrollReveal

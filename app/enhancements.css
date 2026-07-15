@@ -1070,6 +1070,79 @@ nav a:not(.nav-cta).active::after {
   border-top: 1px solid #e3eadc;
 }
 
+/* Why Choose Evermoss Section */
+.why-choose-section {
+  padding: 100px 6vw;
+  background: white;
+  border-block: 1px solid #e3eadc;
+}
+
+.why-header {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 55px;
+}
+
+.why-header h2 {
+  font: 500 44px/1.15 var(--font-serif);
+  letter-spacing: -1.5px;
+  margin: 8px 0 18px;
+  color: var(--ink);
+}
+
+.why-header p:last-child {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.why-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.why-card {
+  background: #f8faf6;
+  border: 1px solid #e3eadc;
+  padding: 35px 25px;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+
+.why-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--moss);
+  box-shadow: 0 10px 25px rgba(93, 118, 75, 0.08);
+}
+
+.why-icon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #dce6d4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+}
+
+.why-card h3 {
+  font: 500 21px var(--font-serif);
+  margin: 0 0 12px;
+}
+
+.why-card p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
 /* Responsiveness overrides */
 @media (max-width: 992px) {
   .full-hero-showcase {
@@ -1087,6 +1160,9 @@ nav a:not(.nav-cta).active::after {
 
   .story-img-container {
     height: 380px;
+  }
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -1177,5 +1253,16 @@ nav a:not(.nav-cta).active::after {
   .square-testimonial-card {
     aspect-ratio: auto;
     padding: 30px;
+  }
+  .why-choose-section {
+    padding: 70px 6vw;
+  }
+
+  .why-header h2 {
+    font-size: 32px;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
   }
 }
