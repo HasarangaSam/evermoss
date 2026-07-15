@@ -60,7 +60,7 @@ export default async function Products() {
 
       <main className="inner">
         <ScrollReveal className="reveal-fade-up">
-          <div className="page-intro">
+          <div className="page-intro products-page-intro">
             <p className="eyebrow">Our Products</p>
 
             <h1>

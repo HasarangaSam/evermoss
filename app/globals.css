@@ -358,6 +358,11 @@ nav a:not(.nav-cta) {
   background: #e9eddf;
   padding: 100px 11vw 80px;
 }
+
+.products-page-intro {
+  padding-top: 140px;
+}
+
 .page-intro h1 {
   font-size: 60px;
   max-width: 740px;

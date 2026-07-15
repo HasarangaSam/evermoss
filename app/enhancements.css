@@ -115,6 +115,10 @@
   padding: 60px 11vw 50px; /* Reduced from 100px 11vw 80px */
 }
 
+.products-page-intro {
+  padding-top: 94px;
+}
+
 /* Bring Pagination Higher Up */
 .full-grid {
   padding-top: 30px;
@@ -178,6 +182,10 @@
 @media (max-width: 760px) {
   .page-intro {
     padding: 40px 7vw; /* Reduced mobile padding */
+  }
+
+  .products-page-intro {
+    padding-top: 86px;
   }
 
   .pagination {
