@@ -43,7 +43,7 @@ export const metadata = {
 
     images: [
       {
-        url: "/favicon.png",
+        url: "/hero.jpg",
         width: 1200,
         height: 630,
         alt: "Evermoss Flower Collection",
