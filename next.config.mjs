@@ -3,7 +3,7 @@ import path from "path";
 const nextConfig = {
   turbopack: { root: path.resolve(".") },
   images: {
-    qualities: [75, 85],
+    qualities: [70, 75, 80, 85],
     remotePatterns: [
       {
         protocol: "https",

@@ -86,7 +86,7 @@ export default function ProductGrid({ products = [] }) {
       </div>
 
       {paginatedProducts.length > 0 ? (
-        <div className="grid full-grid">
+        <div className="grid full-grid product-grid-mobile">
           {paginatedProducts.map((product) => (
             <ProductCard key={product.slug} p={product} />
           ))}

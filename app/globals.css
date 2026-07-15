@@ -660,6 +660,20 @@ footer small {
   .product-card img {
     height: 370px;
   }
+  .product-grid-mobile {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .product-grid-mobile .product-card img {
+    height: 220px;
+  }
+  .product-grid-mobile .product-card div {
+    padding: 12px 12px 14px;
+  }
+  .product-grid-mobile .product-card h3 {
+    font-size: 18px;
+    margin: 6px 0;
+  }
   .section-heading {
     align-items: flex-start;
     flex-direction: column;
