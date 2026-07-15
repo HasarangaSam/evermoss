@@ -28,7 +28,7 @@ export const metadata = {
 
     images: [
       {
-        url: "/og-products.jpg",
+        url: "/favicon.png",
         width: 1200,
         height: 630,
         alt: "Evermoss Flower Collection",
@@ -44,7 +44,7 @@ export const metadata = {
     description:
       "Discover beautiful handcrafted flower arrangements and decorative pieces from Evermoss.",
 
-    images: ["/og-products.jpg"],
+    images: ["/favicon.png"],
   },
 };
 

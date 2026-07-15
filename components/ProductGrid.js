@@ -7,7 +7,7 @@ export default function ProductGrid({ products = [] }) {
   const [order, setOrder] = useState("newest");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 12;
 
   // Reset page when products change
   useEffect(() => {
