@@ -486,6 +486,11 @@
 
   .contact-form-card {
     padding: 24px;
+    order: -1;
+  }
+
+  .contact-info-cards {
+    order: 1;
   }
 
   .info-card-item {
