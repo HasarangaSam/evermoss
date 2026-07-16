@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
-export default function ScrollReveal({ children, className = '', delay = 0 }) {
+export default function ScrollReveal({ children, className = "", delay = 0 }) {
   const [visible, setVisible] = useState(false);
   const ref = useRef(null);
 
@@ -16,8 +16,8 @@ export default function ScrollReveal({ children, className = '', delay = 0 }) {
       },
       {
         threshold: 0,
-        rootMargin: '0px 0px -50px 0px' // Trigger slightly before element enters viewport
-      }
+        rootMargin: "0px 0px -50px 0px", // Trigger slightly before element enters viewport
+      },
     );
 
     const currentRef = ref.current;
@@ -36,8 +36,8 @@ export default function ScrollReveal({ children, className = '', delay = 0 }) {
   return (
     <div
       ref={ref}
-      className={`reveal-item ${className} ${visible ? 'reveal-active' : ''}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      className={`reveal-item ${className} ${visible ? "reveal-active" : ""}`}
+      style={{ transitionDelay: `${delay}ms`, "--reveal-delay": `${delay}ms` }}
     >
       {children}
     </div>

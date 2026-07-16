@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 import Image from "next/image";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export default async function Home() {
   const products = await getProducts();
@@ -49,6 +50,7 @@ export default async function Home() {
 
   return (
     <>
+      <ScrollToTop />
       <Header />
       <main className="home-main">
         {/* Full Viewport Size Hero Image with NO content overlays */}
@@ -119,6 +121,14 @@ export default async function Home() {
 
         {/* 2. How It Works Section */}
         <section className="core-highlights-section">
+          <div className="highlights-section-heading">
+            <h2>How Evermoss Works</h2>
+            <p>
+              From your order to your doorstep, every arrangement is
+              thoughtfully handcrafted with care.
+            </p>
+          </div>
+
           <div className="highlights-grid-container">
             <ScrollReveal className="reveal-fade-up" delay={100}>
               <div className="highlight-column-card">
@@ -236,10 +246,7 @@ export default async function Home() {
         {/* 4. Brand Story Section */}
         <section className="story-redesign-section">
           <div className="story-split-grid">
-            <ScrollReveal
-              className="reveal-fade-up"
-              className="story-image-reveal"
-            >
+            <ScrollReveal className="reveal-fade-up">
               <div className="story-img-container">
                 <img src="./brand.png" alt="Botanical details arrangement" />
               </div>

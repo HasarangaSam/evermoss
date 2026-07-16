@@ -7,7 +7,10 @@ export default function ProductCard({ p }) {
     "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=85";
 
   return (
-    <Link href={`/products/${p.slug}`} className="product-card">
+    <Link
+      href={`/products/${p.slug}`}
+      className="product-card product-card-animated"
+    >
       <Image
         src={image}
         alt={p.name}
