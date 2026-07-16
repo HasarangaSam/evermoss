@@ -5,24 +5,27 @@ import ScrollReveal from "@/components/ScrollReveal";
 import { getProducts } from "@/lib/products";
 
 export const metadata = {
-  title: "Natural & Artificial Flower Arrangements & Gifts | Evermoss",
+  title: "Artificial Flower & Plant Arrangements | Evermoss Sri Lanka",
 
   description:
-    "Explore Evermoss handcrafted artificial flower arrangements, elegant home decor pieces, and thoughtful gifts designed to bring timeless beauty to every space.",
+    "Explore Evermoss handcrafted artificial flower and plant arrangements in Sri Lanka. Discover elegant home decor pieces, custom designs, and thoughtful gifts made to add beauty, greenery, and warmth to any space.",
 
   keywords: [
     "artificial flowers Sri Lanka",
-    "flower arrangements Sri Lanka",
-    "home decor Sri Lanka",
-    "flower gifts",
+    "artificial plants Sri Lanka",
+    "handcrafted flower arrangements Sri Lanka",
+    "custom flower arrangements Sri Lanka",
+    "home decor gifts Sri Lanka",
+    "office decor Sri Lanka",
+    "cafe decoration Sri Lanka",
     "Evermoss products",
   ],
 
   openGraph: {
-    title: "Natural & Artificial Flower Arrangements & Gifts | Evermoss",
+    title: "Handcrafted Artificial Flower & Plant Arrangements | Evermoss",
 
     description:
-      "Discover beautiful handcrafted flower arrangements and decorative pieces from Evermoss.",
+      "Discover beautiful artificial flower arrangements, plant decor, custom designs, and thoughtful gifts handcrafted by Evermoss Sri Lanka.",
 
     type: "website",
 
@@ -31,7 +34,7 @@ export const metadata = {
         url: "/favicon.png",
         width: 1200,
         height: 630,
-        alt: "Evermoss Flower Collection",
+        alt: "Evermoss handcrafted artificial flower and plant arrangements",
       },
     ],
   },
@@ -39,10 +42,10 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Natural & Artificial Flower Arrangements & Gifts | Evermoss",
+    title: "Handcrafted Artificial Flower & Plant Arrangements | Evermoss",
 
     description:
-      "Discover beautiful handcrafted flower arrangements and decorative pieces from Evermoss.",
+      "Explore elegant artificial flower arrangements, custom designs, and home decor gifts from Evermoss Sri Lanka.",
 
     images: ["/favicon.png"],
   },

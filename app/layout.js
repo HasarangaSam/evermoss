@@ -7,21 +7,25 @@ export const metadata = {
   metadataBase: new URL("https://evermoss.com.lk"),
 
   title: {
-    default: "Evermoss | For the love of green spaces",
+    default:
+      "Evermoss | Handcrafted Artificial Flower & Plant Arrangements Sri Lanka",
     template: "%s | Evermoss",
   },
 
   description:
-    "Evermoss creates beautiful natural & artificial flower arrangements, home decor pieces, and thoughtful gifts designed to bring timeless beauty into every space.",
+    "Evermoss creates handcrafted artificial flower and plant arrangements in Sri Lanka. Explore elegant home decor pieces, custom designs, and thoughtful gifts made to bring beauty, greenery, and warmth to your space.",
 
   keywords: [
     "Evermoss",
-    "natural flowers Sri Lanka",
     "artificial flowers Sri Lanka",
-    "flower arrangements Sri Lanka",
-    "home decor Sri Lanka",
+    "artificial plants Sri Lanka",
+    "handcrafted flower arrangements Sri Lanka",
+    "custom flower arrangements Sri Lanka",
+    "home decor gifts Sri Lanka",
+    "office decor Sri Lanka",
+    "cafe decoration Sri Lanka",
+    "Gampaha artificial flowers",
     "flower gifts Sri Lanka",
-    "Gampaha flower shop",
   ],
 
   authors: [
@@ -37,17 +41,17 @@ export const metadata = {
     locale: "en_LK",
     siteName: "Evermoss",
 
-    title: "Evermoss | Beautiful Green Spaces & Flower Arrangements",
+    title: "Evermoss | Handcrafted Artificial Flower & Plant Arrangements",
 
     description:
-      "Thoughtfully handcrafted flower arrangements and elegant decor pieces from Evermoss.",
+      "Discover beautiful handcrafted artificial flower and plant arrangements, custom designs, and elegant decor pieces created to add warmth and greenery to your favourite spaces.",
 
     images: [
       {
         url: "/favicon.png",
         width: 1200,
         height: 630,
-        alt: "Evermoss Flower Collection",
+        alt: "Evermoss handcrafted artificial flower and plant arrangements",
       },
     ],
   },
@@ -55,10 +59,10 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
 
-    title: "Evermoss | Beautiful Green Spaces & Flower Arrangements",
+    title: "Evermoss | Handcrafted Artificial Flower & Plant Arrangements",
 
     description:
-      "Discover handcrafted flower arrangements and decorative pieces from Evermoss.",
+      "Explore elegant artificial flower arrangements, custom designs, and home decor gifts from Evermoss Sri Lanka.",
 
     images: ["/favicon.png"],
   },

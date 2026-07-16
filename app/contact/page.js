@@ -13,20 +13,20 @@ export const metadata = {
 export default function Contact() {
   const faqs = [
     {
-      q: "Can I request a custom floral arrangement design?",
-      a: "Yes, absolutely! We specialize in custom-made arrangements tailored to your style, color scheme, and container preferences. Send us a message on WhatsApp or through this contact form with your ideas, and we will collaborate to bring your vision to life.",
+      q: "Can I request a custom arrangement?",
+      a: "Yes! We create custom arrangements based on your preferred style, colours, size, and space. Share your ideas with us through WhatsApp and we will help create a design that matches your vision.",
     },
     {
-      q: "Do you deliver island-wide?",
-      a: "To ensure our delicate arrangements arrive fresh and in perfect condition, we currently deliver primarily within Gampaha, Colombo, and immediate surrounding areas. For bulk custom orders or special events outside these locations, please get in touch directly to discuss options.",
+      q: "Do you offer Cash on Delivery (COD)?",
+      a: "Yes, Cash on Delivery is available for eligible orders. Contact us to confirm availability for your location and order.",
     },
     {
-      q: "How should I care for my flowers and plants?",
-      a: "Every Evermoss arrangement is delivered with a specific care instruction tag. Generally, fresh flowers should be kept out of direct sunlight and drafts with fresh water added daily. Potted plants thrive best in bright, indirect light and require watering only when the top soil layer feels completely dry.",
+      q: "Where can I use Evermoss arrangements?",
+      a: "Our arrangements are perfect for homes, offices, cafés, reception areas, bedrooms, and special occasions. They are designed to add a natural and elegant touch to different spaces.",
     },
     {
-      q: "How long do the floral arrangements last?",
-      a: "Fresh floral arrangements typically maintain their beauty for 5 to 10 days depending on care and environment. Our dried, preserved collections and terrariums are designed to last for months, or even years, with virtually no maintenance required.",
+      q: "How can I place an order?",
+      a: "You can place an order by contacting us through WhatsApp or social media. Choose from our collection or share your custom design idea with us.",
     },
   ];
 

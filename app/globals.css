@@ -485,6 +485,7 @@ nav a:not(.nav-cta) {
   outline-color: #708c50;
 }
 .contact-form textarea {
+  min-height: 180px;
   resize: vertical;
 }
 .contact-form p {

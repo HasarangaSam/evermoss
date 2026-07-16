@@ -23,7 +23,7 @@ export default async function Home() {
 
   const testimonials = [
     {
-      text: "“Such a pretty arrangement — it made my coffee table feel instantly more special and brought a sense of peace to the room.”",
+      text: "“Such a pretty arrangement, it made my coffee table feel instantly more special and brought a sense of peace to the room.”",
       name: "Nethmi",
       location: "Gampaha",
       image: "/testimonials/sample.jpg",
@@ -57,7 +57,7 @@ export default async function Home() {
         <ScrollReveal className="reveal-fade-up">
           <section className="full-hero-showcase">
             <Image
-              src="/hero.png"
+              src="/78a0917d-fde1-4784-8849-ecef9860ad3a.png"
               alt="Evermoss botanical plants showcase"
               fill
               priority
@@ -83,22 +83,25 @@ export default async function Home() {
               </div>
 
               <h2 className="hero-tagline centered">
-                Natural & Handcrafted Plants
+                Handcrafted Artificial Flower & Plant Arrangements
               </h2>
 
               <p className="hero-desc centered">
-                For homes, offices, cafés & special moments. Plants that bring
-                calm, warmth, and a touch of nature into your space.
+                Beautifully handcrafted arrangements designed to bring warmth,
+                greenery, and timeless elegance to your home, workspace, café,
+                or special moments.
               </p>
 
               {/* Custom Design Callout Banner */}
               <div className="custom-designs-callout centered">
                 <Sparkles size={16} className="sparkle-icon" />
-                <span>Custom designs available for your space ✨</span>
+                <span>
+                  Custom arrangements available to match your space ✨
+                </span>
               </div>
 
               <p className="hero-quote-text centered">
-                A little green, a little peace – made just for you.
+                A little greenery, a little calm — handcrafted just for you.
               </p>
               <div className="heart-divider-small centered">♡</div>
 
@@ -196,8 +199,8 @@ export default async function Home() {
                 </div>
                 <h3>Handcrafted With Love</h3>
                 <p>
-                  Each botanical arrangement is carefully designed by hand with
-                  attention to every small detail.
+                  Every arrangement is carefully handmade with attention to
+                  small details.
                 </p>
               </div>
             </ScrollReveal>
@@ -209,8 +212,8 @@ export default async function Home() {
                 </div>
                 <h3>Perfect For Every Moment</h3>
                 <p>
-                  Beautiful gifts for birthdays, housewarmings, celebrations,
-                  and meaningful occasions.
+                  Beautiful gifts for birthdays, housewarmings, celebrations, or
+                  simply making someone smile.
                 </p>
               </div>
             </ScrollReveal>
@@ -222,8 +225,8 @@ export default async function Home() {
                 </div>
                 <h3>Beautiful In Any Space</h3>
                 <p>
-                  Designed to enhance homes, offices, cafés, and interiors with
-                  natural elegance.
+                  Designed for homes, offices, cafés, reception areas, and
+                  modern interiors.
                 </p>
               </div>
             </ScrollReveal>
@@ -235,8 +238,8 @@ export default async function Home() {
                 </div>
                 <h3>Careful & Safe Delivery</h3>
                 <p>
-                  Safely packaged and delivered with care, so your arrangement
-                  arrives beautifully.
+                  Safely packaged and delivered with care. Cash on Delivery is
+                  available for your convenience.
                 </p>
               </div>
             </ScrollReveal>
@@ -257,10 +260,11 @@ export default async function Home() {
                 <p className="eyebrow">Made for daily peace</p>
                 <h2>More than just greens in a room.</h2>
                 <p>
-                  Evermoss crafts botanical accents and arrangements that
-                  breathe life into structural spaces. Each arrangement brings
-                  the soothing elements of nature inside to help you relax,
-                  breathe, and grow.
+                  Evermoss creates handcrafted artificial flower and plant
+                  arrangements that add a natural touch to your favourite
+                  spaces. From cosy homes to professional workspaces, each
+                  design is made to bring beauty, warmth, and a calming
+                  atmosphere.
                 </p>
                 <div className="story-badge-floating">
                   <span>Embrace nature in your daily life ♡</span>
@@ -276,7 +280,7 @@ export default async function Home() {
             <div className="section-heading">
               <div>
                 <p className="eyebrow">Featured Products</p>
-                <h2>Find your favourite.</h2>
+                <h2>Explore Our Collection</h2>
               </div>
               <Link href="/products" className="text-link">
                 View all products &rarr;
@@ -367,8 +371,8 @@ export default async function Home() {
             <p className="eyebrow">Let’s create together</p>
             <h2>Your space, your story.</h2>
             <p className="custom-copy">
-              Choose a botanical design from our products list or share your own
-              idea. We'll help you make it yours.
+              Explore our handcrafted arrangements or create a custom design
+              that matches your space and style.
             </p>
             <Link href="/contact" className="button primary-btn">
               Get in Touch
