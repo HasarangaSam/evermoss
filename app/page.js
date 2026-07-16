@@ -57,7 +57,7 @@ export default async function Home() {
         <ScrollReveal className="reveal-fade-up">
           <section className="full-hero-showcase">
             <Image
-              src="/hero_new.png"
+              src="/hernewfinal.png"
               alt="Evermoss botanical plants showcase"
               fill
               priority
