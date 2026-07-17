@@ -30,9 +30,9 @@ export default async function Home() {
     },
     {
       text: "“Beautifully made and full of thoughtful details. It was the loveliest housewarming gift, my friends absolutely loved it.”",
-      name: "Shehani",
-      location: "Colombo",
-      image: "/testimonials/sample1.jpg",
+      name: "Shiromi",
+      location: "Kirindiwela,",
+      image: "/testimonials/sample.jpeg",
     },
     {
       text: "“I ordered custom arrangements for my office reception. It completely transformed the space and clients always compliment it.”",

@@ -4,6 +4,7 @@ import Product from "@/models/Product";
 import { authorized } from "@/lib/auth";
 
 import { uploadImage, deleteImage } from "@/lib/cloudinaryHelpers";
+import { normalizeProductImages } from "@/lib/productImageUtils";
 
 import { revalidateTag } from "next/cache";
 
@@ -103,15 +104,20 @@ export async function POST(req) {
       );
     }
 
-    images = images.slice(0, 4);
+    images = normalizeProductImages(images).slice(0, 4);
 
     // Delete old Cloudinary images
     if (oldProduct?.images) {
-      const newIds = images.map((img) => img.publicId).filter(Boolean);
+      const oldNormalizedImages = normalizeProductImages(oldProduct.images);
+      const newIds = images
+        .map((img) => img.publicId || img.public_id)
+        .filter(Boolean);
 
-      for (const oldImg of oldProduct.images) {
-        if (oldImg.publicId && !newIds.includes(oldImg.publicId)) {
-          await deleteImage(oldImg.publicId);
+      for (const oldImg of oldNormalizedImages) {
+        const oldPublicId = oldImg.publicId || oldImg.public_id;
+
+        if (oldPublicId && !newIds.includes(oldPublicId)) {
+          await deleteImage(oldPublicId);
         }
       }
     }
@@ -152,6 +158,10 @@ export async function POST(req) {
     if (oldProduct) {
       // clear old slug page
       revalidateTag(`product-${oldProduct.slug}`);
+    }
+
+    if (savedProduct?.images) {
+      savedProduct.images = normalizeProductImages(savedProduct.images);
     }
 
     // clear new slug page
@@ -198,9 +208,11 @@ export async function DELETE(req) {
     const product = await Product.findById(id);
 
     if (product?.images) {
-      for (const img of product.images) {
-        if (img.publicId) {
-          await deleteImage(img.publicId);
+      for (const img of normalizeProductImages(product.images)) {
+        const publicId = img.publicId || img.public_id;
+
+        if (publicId) {
+          await deleteImage(publicId);
         }
       }
     }
