@@ -14,9 +14,10 @@ export async function POST(req) {
     const res = NextResponse.json({ ok: true });
     res.cookies.set("evermoss_admin", await session(), {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      path: "/admin",
+      // The session is checked by both /admin and /api/admin routes.
+      path: "/",
       maxAge: 604800,
     });
     return res;

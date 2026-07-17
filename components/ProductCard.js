@@ -4,6 +4,7 @@ import Link from "next/link";
 export default function ProductCard({ p }) {
   const image =
     p.images?.[0]?.url ||
+    p.image ||
     "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=85";
 
   return (
