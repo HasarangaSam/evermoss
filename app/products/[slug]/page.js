@@ -114,7 +114,7 @@ export default async function Detail({ params }) {
 
           <ScrollReveal className="reveal-fade-up" delay={150}>
             <div className="detail-copy">
-              <p className="eyebrow">{p.code}</p>
+              <p className="eyebrow">{p.category || p.code}</p>
 
               <h1>{p.name}</h1>
 

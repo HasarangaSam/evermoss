@@ -2,9 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import ProductCard from "./ProductCard";
+import { PRODUCT_CATEGORIES } from "@/lib/productCategories";
 
 export default function ProductGrid({ products = [] }) {
   const [order, setOrder] = useState("newest");
+  const [category, setCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 12;
@@ -12,11 +14,13 @@ export default function ProductGrid({ products = [] }) {
   // Reset page when products change
   useEffect(() => {
     setCurrentPage(1);
-  }, [products]);
+  }, [products, category]);
 
   // Sort products
   const sorted = useMemo(() => {
-    const copy = [...products];
+    const copy = products.filter(
+      (product) => category === "all" || product.category === category,
+    );
 
     if (order === "low") {
       return copy.sort((a, b) => Number(a.price) - Number(b.price));
@@ -31,7 +35,7 @@ export default function ProductGrid({ products = [] }) {
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
-  }, [products, order]);
+  }, [products, order, category]);
 
   // Pagination
   const totalPages = Math.ceil(sorted.length / itemsPerPage);
@@ -64,25 +68,42 @@ export default function ProductGrid({ products = [] }) {
     <>
       <div className="shop-toolbar">
         <p>
-          Showing {paginatedProducts.length} of {products.length}{" "}
-          {products.length === 1 ? "piece" : "pieces"} to make a space feel
+          Showing {paginatedProducts.length} of {sorted.length}{" "}
+          {sorted.length === 1 ? "piece" : "pieces"} to make a space feel
           special
         </p>
 
-        <label>
-          Sort by{" "}
-          <select
-            value={order}
-            onChange={(e) => {
-              setOrder(e.target.value);
-              setCurrentPage(1);
-            }}
-          >
-            <option value="newest">Latest additions</option>
-            <option value="low">Price: low to high</option>
-            <option value="high">Price: high to low</option>
-          </select>
-        </label>
+        <div className="shop-controls">
+          <label>
+            Category{" "}
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="all">All arrangements</option>
+              {PRODUCT_CATEGORIES.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label>
+            Sort by{" "}
+            <select
+              value={order}
+              onChange={(e) => {
+                setOrder(e.target.value);
+                setCurrentPage(1);
+              }}
+            >
+              <option value="newest">Latest additions</option>
+              <option value="low">Price: low to high</option>
+              <option value="high">Price: high to low</option>
+            </select>
+          </label>
+        </div>
       </div>
 
       {paginatedProducts.length > 0 ? (
@@ -92,7 +113,7 @@ export default function ProductGrid({ products = [] }) {
           ))}
         </div>
       ) : (
-        <div className="empty-state">No products available yet.</div>
+        <div className="empty-state">No products found in this category yet.</div>
       )}
 
       {totalPages > 1 && (

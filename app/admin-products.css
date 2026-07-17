@@ -144,7 +144,8 @@
 }
 
 .input-group input,
-.input-group textarea {
+.input-group textarea,
+.input-group select {
   border: 1px solid #cbd6c5;
   background: #fbfcfb;
   padding: 12px 14px;
@@ -157,6 +158,13 @@
 
 .input-group input:focus,
 .input-group textarea:focus {
+  outline: 0;
+  border-color: var(--moss);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(93, 118, 75, 0.08);
+}
+
+.input-group select:focus {
   outline: 0;
   border-color: var(--moss);
   background: white;
@@ -429,6 +437,11 @@
   text-transform: uppercase;
   color: var(--moss);
   letter-spacing: 0.8px;
+}
+
+.item-category {
+  font-size: 11px;
+  color: #63715f;
 }
 
 .item-details h3 {

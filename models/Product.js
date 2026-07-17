@@ -27,6 +27,12 @@ const ProductSchema = new mongoose.Schema(
       required: true,
     },
 
+    category: {
+      type: String,
+      enum: ["Flower Arrangements", "Leaf Arrangements"],
+      trim: true,
+    },
+
     customDesign: {
       type: Boolean,
       default: false,
@@ -56,6 +62,13 @@ const ProductSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+
+// Next.js keeps Mongoose models alive during development hot reloads. Reuse the
+// cached model only when it already has the current schema; otherwise compile
+// it again so newly added fields (such as category) are not stripped on save.
+if (mongoose.models.Product && !mongoose.models.Product.schema.path("category")) {
+  mongoose.deleteModel("Product");
+}
 
 export default mongoose.models.Product ||
   mongoose.model("Product", ProductSchema);

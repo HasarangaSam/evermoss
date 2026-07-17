@@ -5,6 +5,7 @@ import { authorized } from "@/lib/auth";
 
 import { uploadImage, deleteImage } from "@/lib/cloudinaryHelpers";
 import { normalizeProductImages } from "@/lib/productImageUtils";
+import { isProductCategory } from "@/lib/productCategories";
 
 import { revalidateTag } from "next/cache";
 
@@ -41,11 +42,13 @@ export async function POST(req) {
 
     const description = formData.get("description")?.trim();
 
+    const category = formData.get("category")?.trim();
+
     const price = Number(formData.get("price"));
 
     const customDesign = formData.get("customDesign") === "true";
 
-    if (!code || !name || !description || !price) {
+    if (!code || !name || !description || !price || !category) {
       return Response.json(
         {
           error: "Complete all required fields.",
@@ -53,6 +56,13 @@ export async function POST(req) {
         {
           status: 400,
         },
+      );
+    }
+
+    if (!isProductCategory(category)) {
+      return Response.json(
+        { error: "Please select a valid product category." },
+        { status: 400 },
       );
     }
 
@@ -130,6 +140,8 @@ export async function POST(req) {
       slug,
 
       description,
+
+      category,
 
       customDesign,
 

@@ -14,6 +14,11 @@
   align-items: center;
   gap: 10px;
 }
+.shop-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 .shop-toolbar select {
   font: inherit;
   color: var(--ink);
@@ -99,8 +104,12 @@
   .shop-toolbar label {
     justify-content: space-between;
   }
+  .shop-controls {
+    display: grid;
+    gap: 12px;
+  }
   .shop-toolbar select {
-    min-width: 190px;
+    width: 190px;
   }
   .full-grid {
     padding-top: 24px;

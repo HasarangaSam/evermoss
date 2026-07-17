@@ -11,6 +11,7 @@ import {
   LogOut,
   MessageSquare,
 } from "lucide-react";
+import { PRODUCT_CATEGORIES } from "@/lib/productCategories";
 
 const blank = {
   _id: "",
@@ -18,6 +19,7 @@ const blank = {
   name: "",
   slug: "",
   description: "",
+  category: "",
   customDesign: false,
   price: "",
   images: [null, null, null, null],
@@ -240,6 +242,8 @@ export default function Admin() {
 
     formData.append("description", form.description);
 
+    formData.append("category", form.category);
+
     formData.append("customDesign", form.customDesign);
 
     formData.append("price", form.price);
@@ -338,6 +342,8 @@ export default function Admin() {
       slug: p.slug || "",
 
       description: p.description || "",
+
+      category: p.category || "",
 
       customDesign: Boolean(p.customDesign),
 
@@ -515,6 +521,25 @@ export default function Admin() {
               />
             </div>
 
+            <div className="input-group">
+              <label>Category</label>
+
+              <select
+                value={form.category}
+                onChange={(e) => set("category", e.target.value)}
+                required
+              >
+                <option value="" disabled>
+                  Select a category
+                </option>
+                {PRODUCT_CATEGORIES.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div className="input-row">
               <div className="input-group">
                 <label>Price (Rs.)</label>
@@ -646,6 +671,10 @@ export default function Admin() {
 
                   <div className="item-details">
                     <span className="item-code">{p.code}</span>
+
+                    {p.category && (
+                      <span className="item-category">{p.category}</span>
+                    )}
 
                     <h3>{p.name}</h3>
 
