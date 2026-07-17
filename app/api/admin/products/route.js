@@ -79,11 +79,17 @@ export async function POST(req) {
 
     // Existing images
     const existingImages = formData.getAll("existingImages");
+    const oldNormalizedImages = oldProduct
+      ? normalizeProductImages(oldProduct.images)
+      : [];
 
     for (const url of existingImages) {
+      const existingImage = oldNormalizedImages.find((img) => img?.url === url);
+
       images.push({
         url,
-        publicId: null,
+        publicId: existingImage?.publicId ?? existingImage?.public_id ?? null,
+        public_id: existingImage?.public_id ?? existingImage?.publicId ?? null,
       });
     }
 

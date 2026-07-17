@@ -228,6 +228,22 @@ nav a:not(.nav-cta) {
   letter-spacing: 1.3px;
   color: #76856f;
 }
+.product-card .product-code {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  text-transform: none;
+  letter-spacing: 0.4px;
+  color: #64715b;
+}
+.detail-copy .product-code {
+  display: block;
+  margin: 8px 0 14px;
+  font-size: 13px;
+  text-transform: none;
+  letter-spacing: 0.6px;
+  color: #64715b;
+}
 .product-card h3 {
   font: 500 25px var(--font-serif);
   margin: 8px 0;

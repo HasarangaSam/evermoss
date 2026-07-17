@@ -23,7 +23,7 @@ export default function ProductCard({ p }) {
       />
 
       <div>
-        <span>{p.category || p.code}</span>
+        {p.code && <span className="product-code">{p.code}</span>}
 
         <h3>{p.name}</h3>
 

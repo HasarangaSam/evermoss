@@ -328,7 +328,9 @@ export default function Admin() {
           }
         }
       });
-    } else if (p.image) {
+    }
+
+    if (!initialImages.some(Boolean) && p.image) {
       initialImages[0] = p.image;
     }
 
