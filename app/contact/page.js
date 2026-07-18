@@ -61,11 +61,11 @@ export default function Contact() {
                 <div className="info-card-details">
                   <span>WhatsApp Enquiry</span>
                   <a
-                    href="https://wa.me/94720295492"
+                    href="https://wa.me/94711056002"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    +94 72 029 5492
+                    +94 71 105 6002
                   </a>
                   <p>Mon - Sun, 8:00 AM - 8:00 PM</p>
                 </div>
