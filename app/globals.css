@@ -760,4 +760,13 @@ footer small {
   .admin-list small {
     display: none;
   }
+  .back-light {
+    display: block;
+    width: fit-content;
+    margin-left: 0;
+  }
+  .detail-copy .button {
+    display: block;
+    width: fit-content;
+  }
 }
