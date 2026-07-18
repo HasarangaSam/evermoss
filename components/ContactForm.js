@@ -27,16 +27,21 @@ export default function ContactForm() {
   async function submit(e) {
     e.preventDefault();
 
+    const phoneRegex = /^(\+94|0)?[0-9]{9,10}$/;
+
+    if (formData.phone && !phoneRegex.test(formData.phone)) {
+      setStatus("Please enter a valid phone number.");
+      return;
+    }
+
     setStatus("Sending…");
 
     try {
       const r = await fetch("/api/contact", {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify(formData),
       });
 
@@ -83,9 +88,11 @@ export default function ContactForm() {
 
       <input
         name="phone"
+        type="tel"
         value={formData.phone}
         onChange={handleChange}
         placeholder="Phone number (optional)"
+        pattern="^(\+94|0)?[0-9]{9,10}$"
       />
 
       <textarea

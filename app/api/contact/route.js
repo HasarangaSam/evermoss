@@ -34,7 +34,6 @@ export async function POST(req) {
     // HONEYPOT CHECK
     // ==========================
 
-    // Hidden field for bots
     if (body.website) {
       return Response.json(
         {
@@ -61,7 +60,9 @@ export async function POST(req) {
       );
     }
 
-    // Message length protection
+    // ==========================
+    // LENGTH PROTECTION
+    // ==========================
 
     if (
       body.name.length > 50 ||
@@ -95,7 +96,7 @@ export async function POST(req) {
     });
 
     // ==========================
-    // SEND EMAIL NOTIFICATION
+    // SEND EMAILS
     // ==========================
 
     if (process.env.SMTP_HOST) {
@@ -113,6 +114,10 @@ export async function POST(req) {
         },
       });
 
+      // ==========================
+      // EMAIL 1: SEND TO BUSINESS OWNER
+      // ==========================
+
       await transporter.sendMail({
         from: process.env.SMTP_FROM,
 
@@ -122,16 +127,43 @@ export async function POST(req) {
 
         subject: `Evermoss enquiry from ${body.name}`,
 
-        text: `Name: ${body.name}
+        text: `New enquiry received.
+
+Name: ${body.name}
 
 Email: ${body.email}
 
 Phone: ${body.phone || "—"}
 
-
 Message:
 
 ${body.message}`,
+      });
+
+      // ==========================
+      // EMAIL 2: SEND CONFIRMATION TO CUSTOMER
+      // ==========================
+
+      await transporter.sendMail({
+        from: process.env.SMTP_FROM,
+
+        to: body.email,
+
+        subject: "We received your Evermoss enquiry",
+
+        text: `Hi ${body.name},
+
+Thank you for contacting Evermoss.
+
+We have received your enquiry and our team will get back to you as soon as possible.
+
+Your message:
+
+${body.message}
+
+Regards,
+
+Evermoss Team`,
       });
     }
 
@@ -147,7 +179,6 @@ ${body.message}`,
       {
         error: "Unable to send",
       },
-
       {
         status: 500,
       },

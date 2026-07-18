@@ -9,8 +9,8 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ScrollToTop from "@/components/ScrollToTop";
 import { getProduct, getProducts } from "@/lib/products";
 
-// Revalidate product pages every 5 minutes
-export const revalidate = 300;
+// Revalidate product pages every 1 hour
+export const revalidate = 3600;
 
 // Generate product pages during build
 export async function generateStaticParams() {

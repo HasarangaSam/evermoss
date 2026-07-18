@@ -51,8 +51,8 @@ export const metadata = {
   },
 };
 
-// Cache page data and refresh every 60 seconds
-export const revalidate = 60;
+// Cache page data and refresh every 1 hour
+export const revalidate = 3600;
 
 export default async function Products() {
   const products = await getProducts();
