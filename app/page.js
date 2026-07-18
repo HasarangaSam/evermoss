@@ -24,9 +24,9 @@ export default async function Home() {
   const testimonials = [
     {
       text: "“Such a pretty arrangement, it made my coffee table feel instantly more special and brought a sense of peace to the room.”",
-      name: "Nethmi",
+      name: "Sandasi",
       location: "Gampaha",
-      image: "/testimonials/sample.jpg",
+      image: "/testimonials/sandasii.png",
     },
     {
       text: "“Beautifully made and full of thoughtful details. It was the loveliest housewarming gift, my friends absolutely loved it.”",
@@ -36,9 +36,9 @@ export default async function Home() {
     },
     {
       text: "“I ordered custom arrangements for my office reception. It completely transformed the space and clients always compliment it.”",
-      name: "Daham",
-      location: "Kandy",
-      image: "/testimonials/sample3.jpeg",
+      name: "Gimhan",
+      location: "Colombo",
+      image: "/testimonials/gimhan.jpeg",
     },
     {
       text: "“The detail and craftsmanship are incredible. Highly recommend Evermoss for anyone looking to add high-quality botanical accents.”",
