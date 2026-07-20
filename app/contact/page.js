@@ -139,8 +139,8 @@ export default function Contact() {
               <p className="eyebrow">Common Questions</p>
               <h2>Frequently Asked Questions</h2>
               <p>
-                Everything you need to know about our handcrafted floral
-                arrangements and care guides.
+                Discover answers to the most common questions about Evermoss
+                creations.
               </p>
             </div>
           </ScrollReveal>
