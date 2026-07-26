@@ -64,7 +64,7 @@ export const metadata = {
     description:
       "Explore elegant artificial flower arrangements, custom designs, and home decor gifts from Evermoss Sri Lanka.",
 
-    images: ["/favicon.png"],
+    images: ["/favicon.ico"],
   },
 
   robots: {
