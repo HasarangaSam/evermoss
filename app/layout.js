@@ -46,9 +46,15 @@ export const metadata = {
     description:
       "Discover beautiful handcrafted artificial flower and plant arrangements, custom designs, and elegant decor pieces created to add warmth and greenery to your favourite spaces.",
 
+    icons: {
+      icon: "/favicon.ico",
+      shortcut: "/favicon.ico",
+      apple: "/apple-touch-icon.png",
+    },
+
     images: [
       {
-        url: "/favicon.ico",
+        url: "/favicon.png",
         width: 1200,
         height: 630,
         alt: "Evermoss handcrafted artificial flower and plant arrangements",
