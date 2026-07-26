@@ -48,7 +48,7 @@ export const metadata = {
 
     images: [
       {
-        url: "/favicon.png",
+        url: "/favicon.ico",
         width: 1200,
         height: 630,
         alt: "Evermoss handcrafted artificial flower and plant arrangements",
