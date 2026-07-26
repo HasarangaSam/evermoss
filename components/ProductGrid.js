@@ -1,20 +1,49 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import ProductCard from "./ProductCard";
-import { PRODUCT_CATEGORIES } from "@/lib/productCategories";
+import { FaChevronDown, FaCheck } from "react-icons/fa6";
 
-export default function ProductGrid({ products = [] }) {
+const SORT_OPTIONS = [
+  { value: "newest", label: "Latest additions" },
+  { value: "low", label: "Price: low to high" },
+  { value: "high", label: "Price: high to low" },
+];
+
+function ProductGridContent({ products = [] }) {
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category") || "all";
+
   const [order, setOrder] = useState("newest");
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState(categoryParam);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortOpen, setSortOpen] = useState(false);
+  const sortRef = useRef(null);
 
   const itemsPerPage = 12;
 
-  // Reset page when products change
+  // Sync state with URL category parameter
   useEffect(() => {
+    setCategory(categoryParam);
     setCurrentPage(1);
-  }, [products, category]);
+  }, [categoryParam]);
+
+  // Close sort dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (sortRef.current && !sortRef.current.contains(event.target)) {
+        setSortOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const activeSortLabel =
+    SORT_OPTIONS.find((opt) => opt.value === order)?.label || "Latest additions";
 
   // Sort products
   const sorted = useMemo(() => {
@@ -42,7 +71,6 @@ export default function ProductGrid({ products = [] }) {
 
   const paginatedProducts = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
-
     return sorted.slice(start, start + itemsPerPage);
   }, [sorted, currentPage]);
 
@@ -67,42 +95,50 @@ export default function ProductGrid({ products = [] }) {
   return (
     <>
       <div className="shop-toolbar">
-        <p>
-          Showing {paginatedProducts.length} of {sorted.length}{" "}
-          {sorted.length === 1 ? "piece" : "pieces"} to make a space feel
-          special
-        </p>
+        <div className="category-title-heading">
+          <span className="category-badge">Category</span>
+          <h2 className="current-category-name">
+            {category === "all" ? "All Arrangements" : category}
+          </h2>
+        </div>
 
         <div className="shop-controls">
-          <label>
-            Category{" "}
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="all">All arrangements</option>
-              {PRODUCT_CATEGORIES.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div className="theme-sort-container" ref={sortRef}>
+            <span className="select-label-text">Sort by</span>
 
-          <label>
-            Sort by{" "}
-            <select
-              value={order}
-              onChange={(e) => {
-                setOrder(e.target.value);
-                setCurrentPage(1);
-              }}
-            >
-              <option value="newest">Latest additions</option>
-              <option value="low">Price: low to high</option>
-              <option value="high">Price: high to low</option>
-            </select>
-          </label>
+            <div className="custom-dropdown-wrapper">
+              <button
+                type="button"
+                className={`custom-sort-trigger ${sortOpen ? "open" : ""}`}
+                onClick={() => setSortOpen((prev) => !prev)}
+                aria-expanded={sortOpen}
+                aria-label="Sort products menu"
+              >
+                <span>{activeSortLabel}</span>
+                <FaChevronDown className={`sort-chevron ${sortOpen ? "rotated" : ""}`} />
+              </button>
+
+              {sortOpen && (
+                <div className="custom-sort-menu">
+                  {SORT_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      className={`custom-sort-item ${order === opt.value ? "selected" : ""}`}
+                      onClick={() => {
+                        setOrder(opt.value);
+                        setCurrentPage(1);
+                        setSortOpen(false);
+                      }}
+                    >
+                      <span>{opt.label}</span>
+                      {order === opt.value && <FaCheck className="sort-check-icon" />}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -157,3 +193,13 @@ export default function ProductGrid({ products = [] }) {
     </>
   );
 }
+
+export default function ProductGrid(props) {
+  return (
+    <Suspense fallback={null}>
+      <ProductGridContent {...props} />
+    </Suspense>
+  );
+}
+
+
