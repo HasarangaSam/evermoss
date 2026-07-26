@@ -36,6 +36,15 @@ export const metadata = {
 
   creator: "Evermoss",
 
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png", sizes: "48x48" }, // or whatever size it is
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png", // only if the file actually exists
+  },
+
   openGraph: {
     type: "website",
     locale: "en_LK",
@@ -45,12 +54,6 @@ export const metadata = {
 
     description:
       "Discover beautiful handcrafted artificial flower and plant arrangements, custom designs, and elegant decor pieces created to add warmth and greenery to your favourite spaces.",
-
-    icons: {
-      icon: "/favicon.ico",
-      shortcut: "/favicon.ico",
-      apple: "/apple-touch-icon.png",
-    },
 
     images: [
       {
