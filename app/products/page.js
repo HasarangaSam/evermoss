@@ -1,7 +1,9 @@
+import { Suspense } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductGrid from "@/components/ProductGrid";
 import ScrollReveal from "@/components/ScrollReveal";
+import ProductsScrollManager from "@/components/ProductsScrollManager";
 import { getProducts } from "@/lib/products";
 
 export const metadata = {
@@ -59,6 +61,9 @@ export default async function Products() {
 
   return (
     <>
+      <Suspense fallback={null}>
+        <ProductsScrollManager />
+      </Suspense>
       <Header />
 
       <main className="inner">

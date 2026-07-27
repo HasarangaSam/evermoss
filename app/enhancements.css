@@ -144,14 +144,12 @@
   }
 }
 
-/* Collection Hero Section Height Tuning */
 .page-intro {
-  padding: 60px 11vw 50px;
-  /* Reduced from 100px 11vw 80px */
+  padding: 45px 11vw 40px;
 }
 
 .products-page-intro {
-  padding-top: 96px;
+  padding-top: 45px;
 }
 
 /* Bring Pagination Higher Up */
@@ -227,7 +225,7 @@
   }
 
   .products-page-intro {
-    padding-top: 86px;
+    padding-top: 30px;
   }
 
   .pagination {

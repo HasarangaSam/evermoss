@@ -33,8 +33,15 @@ function HeaderContent() {
     };
   }, []);
 
-  // Close menus on path change
+  // Close menus on path change and track navigation path history for scroll restoration
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const prevPath = sessionStorage.getItem("current_path") || "";
+      if (prevPath && prevPath !== pathname) {
+        sessionStorage.setItem("last_visited_path", prevPath);
+      }
+      sessionStorage.setItem("current_path", pathname);
+    }
     setDropdownOpen(false);
     setOpen(false);
   }, [pathname, searchParams]);
