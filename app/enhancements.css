@@ -678,14 +678,17 @@ button.nav-products-btn.active::after {
   opacity: 0.9;
 }
 
-.nav-dropdown-container:hover .nav-dropdown-menu {
+.nav-dropdown-container:hover .nav-dropdown-menu,
+.nav-dropdown-container.dropdown-active .nav-dropdown-menu,
+.nav-dropdown-menu.show {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
   pointer-events: auto;
 }
 
-.nav-dropdown-container:hover .nav-arrow-icon {
+.nav-dropdown-container:hover .nav-arrow-icon,
+.nav-dropdown-container.dropdown-active .nav-arrow-icon {
   transform: rotate(180deg);
 }
 
@@ -706,6 +709,18 @@ button.nav-products-btn.active::after {
   transform: translateY(8px);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
+}
+
+/* Invisible bridge bridging the gap between button and dropdown */
+@media (min-width: 761px) {
+  .nav-dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 0;
+    right: 0;
+    height: 14px;
+  }
 }
 
 .dropdown-menu-item {

@@ -11,6 +11,7 @@ function HeaderContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const dropdownRef = useRef(null);
+  const closeTimeoutRef = useRef(null);
 
   const categoryParam = searchParams.get("category");
 
@@ -44,6 +45,23 @@ function HeaderContent() {
     setDropdownOpen((prev) => !prev);
   };
 
+  // Desktop hover handlers with a grace-period close delay
+  const handleMouseEnter = () => {
+    if (typeof window !== "undefined" && window.innerWidth <= 760) return;
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    if (typeof window !== "undefined" && window.innerWidth <= 760) return;
+    closeTimeoutRef.current = setTimeout(() => {
+      setDropdownOpen(false);
+    }, 200);
+  };
+
   const isAllProductsActive = pathname === "/products" && !categoryParam;
   const isFlowerActive = pathname === "/products" && categoryParam === "Flower Arrangements";
   const isLeafActive = pathname === "/products" && categoryParam === "Leaf Arrangements";
@@ -63,6 +81,8 @@ function HeaderContent() {
         <div
           ref={dropdownRef}
           className={`nav-dropdown-container ${dropdownOpen ? "dropdown-active" : ""}`}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           <button
             type="button"
