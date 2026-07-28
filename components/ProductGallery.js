@@ -8,10 +8,12 @@ export default function ProductGallery({ images = [], name }) {
   const photos = images.map((img) => img.url).filter(Boolean);
 
   const [active, setActive] = useState(0);
+  const [isZoomed, setIsZoomed] = useState(false);
   const imgRef = useRef(null);
   const isControlHoveredRef = useRef(false);
 
   const resetZoom = useCallback(() => {
+    setIsZoomed(false);
     if (imgRef.current) {
       imgRef.current.style.transform = "scale(1)";
       imgRef.current.style.transformOrigin = "center center";
@@ -44,41 +46,51 @@ export default function ProductGallery({ images = [], name }) {
     isControlHoveredRef.current = true;
   }
 
-  function handleMouseMove(e) {
+  // Toggle zoom on click
+  function handleClick(e) {
     if (isControlHoveredRef.current) return;
-    if (!window.matchMedia("(hover: hover)").matches) return;
+
+    if (isZoomed) {
+      resetZoom();
+    } else {
+      const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+      const rawX = ((e.clientX - left) / width) * 100;
+      const rawY = ((e.clientY - top) / height) * 100;
+      const x = Math.max(8, Math.min(92, rawX));
+      const y = Math.max(8, Math.min(92, rawY));
+
+      setIsZoomed(true);
+      if (imgRef.current) {
+        imgRef.current.style.transformOrigin = `${x}% ${y}%`;
+        imgRef.current.style.transform = "scale(1.75)";
+      }
+    }
+  }
+
+  // Pan while zoomed in by moving mouse
+  function handleMouseMove(e) {
+    if (!isZoomed) return;
+    if (isControlHoveredRef.current) return;
 
     const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
     const rawX = ((e.clientX - left) / width) * 100;
     const rawY = ((e.clientY - top) / height) * 100;
-
-    // Clamp coordinates to keep zoom smooth inside bounds
     const x = Math.max(8, Math.min(92, rawX));
     const y = Math.max(8, Math.min(92, rawY));
 
     if (imgRef.current) {
       imgRef.current.style.transformOrigin = `${x}% ${y}%`;
-      imgRef.current.style.transform = "scale(1.65)";
-    }
-  }
-
-  function handleMouseEnter() {
-    if (isControlHoveredRef.current) return;
-    if (!window.matchMedia("(hover: hover)").matches) return;
-    if (imgRef.current) {
-      imgRef.current.style.transform = "scale(1.65)";
     }
   }
 
   function handleMouseLeave() {
     isControlHoveredRef.current = false;
-    resetZoom();
+    // Keep zoom when mouse leaves — only reset on explicit click-out
   }
 
   function handleControlEnter(e) {
     if (e) e.stopPropagation();
     isControlHoveredRef.current = true;
-    resetZoom();
   }
 
   function handleControlLeave(e) {
@@ -90,9 +102,9 @@ export default function ProductGallery({ images = [], name }) {
     <div className="product-gallery">
       <div className="gallery-frame">
         <div
-          className="gallery-zoom-container"
+          className={`gallery-zoom-container${isZoomed ? " zoomed" : ""}`}
+          onClick={handleClick}
           onMouseMove={handleMouseMove}
-          onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <Image

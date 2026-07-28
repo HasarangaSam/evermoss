@@ -79,11 +79,6 @@ export default async function Products() {
               <br />
               beautifully made.
             </h1>
-
-            <p>
-              Thoughtfully handcrafted pieces to bring timeless beauty, warmth,
-              colour and a touch of nature into your home.
-            </p>
           </div>
         </ScrollReveal>
 

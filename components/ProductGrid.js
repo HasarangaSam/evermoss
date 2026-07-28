@@ -3,27 +3,29 @@
 import { useEffect, useMemo, useState, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import ProductCard from "./ProductCard";
-import { FaChevronDown, FaCheck } from "react-icons/fa6";
+import { FaChevronDown, FaCheck, FaMagnifyingGlass, FaXmark } from "react-icons/fa6";
 
 const SORT_OPTIONS = [
-  { value: "newest", label: "Latest additions" },
-  { value: "low", label: "Price: low to high" },
-  { value: "high", label: "Price: high to low" },
+  { value: "newest", label: "Latest additions", mobileLabel: "Latest" },
+  { value: "low", label: "Price: low to high", mobileLabel: "Price ↑" },
+  { value: "high", label: "Price: high to low", mobileLabel: "Price ↓" },
 ];
 
 function ProductGridContent({ products = [] }) {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category") || "all";
+  const urlSearchParam = searchParams.get("q") || searchParams.get("search") || "";
 
   const [order, setOrder] = useState("newest");
   const [category, setCategory] = useState(categoryParam);
+  const [searchQuery, setSearchQuery] = useState(urlSearchParam);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOpen, setSortOpen] = useState(false);
   const sortRef = useRef(null);
 
   const itemsPerPage = 16;
 
-  // Sync state with URL category parameter and restore pagination page if returning from detail page
+  // Sync state with URL search query & category parameters and restore pagination page if returning from detail page
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -42,15 +44,50 @@ function ProductGridContent({ products = [] }) {
         if (!isNaN(pageNum) && pageNum > 0) {
           setCurrentPage(pageNum);
           setCategory(categoryParam);
+          setSearchQuery(urlSearchParam);
           return;
         }
       }
     }
 
     setCategory(categoryParam);
+    setSearchQuery(urlSearchParam);
     setCurrentPage(1);
     sessionStorage.setItem("products_current_page", "1");
-  }, [categoryParam]);
+
+    // Smooth scroll to top when switching categories or search
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [categoryParam, urlSearchParam]);
+
+
+  // Update URL search query string parameter seamlessly
+  function updateUrlSearch(newQuery) {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (newQuery.trim()) {
+      params.set("q", newQuery.trim());
+    } else {
+      params.delete("q");
+    }
+    const queryString = params.toString();
+    const newUrl = queryString ? `${window.location.pathname}?${queryString}` : window.location.pathname;
+    window.history.replaceState(null, "", newUrl);
+  }
+
+  function handleSearchChange(e) {
+    const val = e.target.value;
+    setSearchQuery(val);
+    setCurrentPage(1);
+    sessionStorage.setItem("products_current_page", "1");
+    updateUrlSearch(val);
+  }
+
+  function handleClearSearch() {
+    setSearchQuery("");
+    setCurrentPage(1);
+    sessionStorage.setItem("products_current_page", "1");
+    updateUrlSearch("");
+  }
 
   // Close sort dropdown when clicking outside
   useEffect(() => {
@@ -65,29 +102,41 @@ function ProductGridContent({ products = [] }) {
     };
   }, []);
 
-  const activeSortLabel =
-    SORT_OPTIONS.find((opt) => opt.value === order)?.label || "Latest additions";
+  const activeSort = SORT_OPTIONS.find((opt) => opt.value === order);
+  const activeSortLabel = activeSort?.label || "Latest additions";
+  const activeMobileLabel = activeSort?.mobileLabel || "Latest";
 
-  // Sort products
+  // Filter & sort products
   const sorted = useMemo(() => {
-    const copy = products.filter(
-      (product) => category === "all" || product.category === category,
-    );
+    const q = searchQuery.trim().toLowerCase();
+
+    const filtered = products.filter((product) => {
+      const matchesCategory = category === "all" || product.category === category;
+      if (!matchesCategory) return false;
+
+      if (!q) return true;
+
+      const nameMatch = product.name ? product.name.toLowerCase().includes(q) : false;
+      const codeMatch = product.code ? product.code.toLowerCase().includes(q) : false;
+      const descMatch = product.description ? product.description.toLowerCase().includes(q) : false;
+
+      return nameMatch || codeMatch || descMatch;
+    });
 
     if (order === "low") {
-      return copy.sort((a, b) => Number(a.price) - Number(b.price));
+      return filtered.sort((a, b) => Number(a.price) - Number(b.price));
     }
 
     if (order === "high") {
-      return copy.sort((a, b) => Number(b.price) - Number(a.price));
+      return filtered.sort((a, b) => Number(b.price) - Number(a.price));
     }
 
     // Newest products first
-    return copy.sort(
+    return filtered.sort(
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
-  }, [products, order, category]);
+  }, [products, order, category, searchQuery]);
 
   // Pagination
   const totalPages = Math.ceil(sorted.length / itemsPerPage);
@@ -106,7 +155,7 @@ function ProductGridContent({ products = [] }) {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: "instant",
+        behavior: "smooth",
       });
     }
   }
@@ -122,6 +171,28 @@ function ProductGridContent({ products = [] }) {
         </div>
 
         <div className="shop-controls">
+          <div className="product-search-wrapper">
+            <FaMagnifyingGlass className="search-icon" />
+            <input
+              type="text"
+              className="product-search-input"
+              placeholder="Search arrangements, code..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              aria-label="Search products"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                className="clear-search-btn"
+                onClick={handleClearSearch}
+                aria-label="Clear search"
+              >
+                <FaXmark />
+              </button>
+            )}
+          </div>
+
           <div className="theme-sort-container" ref={sortRef}>
             <span className="select-label-text">Sort by</span>
 
@@ -133,7 +204,8 @@ function ProductGridContent({ products = [] }) {
                 aria-expanded={sortOpen}
                 aria-label="Sort products menu"
               >
-                <span>{activeSortLabel}</span>
+                <span className="sort-label-desktop">{activeSortLabel}</span>
+                <span className="sort-label-mobile">{activeMobileLabel}</span>
                 <FaChevronDown className={`sort-chevron ${sortOpen ? "rotated" : ""}`} />
               </button>
 
@@ -170,6 +242,15 @@ function ProductGridContent({ products = [] }) {
         </div>
       </div>
 
+      {searchQuery && (
+        <div className="search-results-info">
+          <span>
+            Found <strong>{sorted.length}</strong> {sorted.length === 1 ? "arrangement" : "arrangements"} matching &ldquo;<strong>{searchQuery}</strong>&rdquo;
+          </span>
+        </div>
+      )}
+
+
       {paginatedProducts.length > 0 ? (
         <div className="grid full-grid product-grid-mobile">
           {paginatedProducts.map((product) => (
@@ -177,7 +258,26 @@ function ProductGridContent({ products = [] }) {
           ))}
         </div>
       ) : (
-        <div className="empty-state">No products found in this category yet.</div>
+        <div className="empty-state product-empty-state">
+          <div className="empty-icon-wrap">
+            <FaMagnifyingGlass className="empty-search-icon" />
+          </div>
+          <h3>No matching arrangements</h3>
+          <p>
+            {searchQuery
+              ? `We couldn't find anything matching "${searchQuery}". Try checking for spelling or search another keyword.`
+              : "No products found in this category yet."}
+          </p>
+          {searchQuery && (
+            <button
+              type="button"
+              className="clear-search-action-btn"
+              onClick={handleClearSearch}
+            >
+              Clear Search & View All
+            </button>
+          )}
+        </div>
       )}
 
       {totalPages > 1 && (
@@ -229,5 +329,6 @@ export default function ProductGrid(props) {
     </Suspense>
   );
 }
+
 
 
