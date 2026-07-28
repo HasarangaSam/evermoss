@@ -1139,16 +1139,23 @@ button.nav-products-btn.active::after {
   color: #c98a3b;
 }
 
+.centered {
+  text-align: center;
+}
+
 .hero-quote-text {
   font: italic 17px var(--font-serif);
   color: var(--moss);
-  margin: 0 0 4px;
+  margin: 0 auto 4px;
+  text-align: center;
+  width: 100%;
 }
 
 .heart-divider-small {
   font-size: 14px;
   color: var(--moss);
   margin-bottom: 28px;
+  text-align: center;
 }
 
 .hero-actions-container {
@@ -1845,6 +1852,13 @@ button.nav-products-btn.active::after {
 
   .hero-desc {
     font-size: 14.5px;
+    text-align: center;
+  }
+
+  .hero-quote-text {
+    font-size: 15.5px;
+    text-align: center;
+    margin: 0 auto 6px;
   }
 
   .core-highlights-section {

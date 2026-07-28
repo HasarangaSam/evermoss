@@ -24,35 +24,44 @@ export default function ProductsScrollManager() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const currentPath = window.location.pathname;
+    // Disable browser's automatic scroll restoration on popstate for products page
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
     const lastPath = sessionStorage.getItem("last_visited_path") || "";
+    const currentPathInStorage = sessionStorage.getItem("current_path") || "";
 
     // Check if user came from a product detail page (e.g. /products/bella)
     const isFromProductDetail =
-      lastPath.startsWith("/products/") && lastPath !== "/products";
+      (lastPath.startsWith("/products/") && lastPath !== "/products") ||
+      (currentPathInStorage.startsWith("/products/") &&
+        currentPathInStorage !== "/products");
 
     const savedScrollY = sessionStorage.getItem("products_scroll_y");
 
     if (isFromProductDetail && savedScrollY !== null) {
-      // Returning from product detail page -> restore scrolled position
+      // Returning from product detail page -> restore scrolled position after DOM render
       const scrollY = parseInt(savedScrollY, 10);
-      window.scrollTo({
-        top: scrollY,
-        left: 0,
-        behavior: "instant",
-      });
+      const timer = setTimeout(() => {
+        window.scrollTo({
+          top: scrollY,
+          left: 0,
+          behavior: "instant",
+        });
+      }, 50);
+      return () => clearTimeout(timer);
     } else {
       // Arriving from a different page (Home, Contact, etc.) -> force scroll to top
+      sessionStorage.setItem("products_scroll_y", "0");
       window.scrollTo({
         top: 0,
         left: 0,
         behavior: "instant",
       });
     }
-
-    // Record current path for next navigation
-    sessionStorage.setItem("last_visited_path", currentPath);
   }, [pathname, searchParams]);
 
   return null;
 }
+

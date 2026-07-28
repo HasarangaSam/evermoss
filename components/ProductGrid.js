@@ -23,10 +23,33 @@ function ProductGridContent({ products = [] }) {
 
   const itemsPerPage = 16;
 
-  // Sync state with URL category parameter
+  // Sync state with URL category parameter and restore pagination page if returning from detail page
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const lastPath = sessionStorage.getItem("last_visited_path") || "";
+    const currentPathInStorage = sessionStorage.getItem("current_path") || "";
+
+    const isFromProductDetail =
+      (lastPath.startsWith("/products/") && lastPath !== "/products") ||
+      (currentPathInStorage.startsWith("/products/") &&
+        currentPathInStorage !== "/products");
+
+    if (isFromProductDetail) {
+      const savedPage = sessionStorage.getItem("products_current_page");
+      if (savedPage) {
+        const pageNum = parseInt(savedPage, 10);
+        if (!isNaN(pageNum) && pageNum > 0) {
+          setCurrentPage(pageNum);
+          setCategory(categoryParam);
+          return;
+        }
+      }
+    }
+
     setCategory(categoryParam);
     setCurrentPage(1);
+    sessionStorage.setItem("products_current_page", "1");
   }, [categoryParam]);
 
   // Close sort dropdown when clicking outside
@@ -77,17 +100,13 @@ function ProductGridContent({ products = [] }) {
   function handlePageChange(pageNumber) {
     setCurrentPage(pageNumber);
 
-    const intro = document.querySelector(".page-intro");
-
-    if (intro) {
-      intro.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    } else {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("products_current_page", pageNumber.toString());
+      sessionStorage.setItem("products_scroll_y", "0");
       window.scrollTo({
         top: 0,
-        behavior: "smooth",
+        left: 0,
+        behavior: "instant",
       });
     }
   }
@@ -129,6 +148,15 @@ function ProductGridContent({ products = [] }) {
                         setOrder(opt.value);
                         setCurrentPage(1);
                         setSortOpen(false);
+                        if (typeof window !== "undefined") {
+                          sessionStorage.setItem("products_current_page", "1");
+                          sessionStorage.setItem("products_scroll_y", "0");
+                          window.scrollTo({
+                            top: 0,
+                            left: 0,
+                            behavior: "instant",
+                          });
+                        }
                       }}
                     >
                       <span>{opt.label}</span>
