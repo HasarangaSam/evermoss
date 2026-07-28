@@ -40,6 +40,9 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${product.name} | Evermoss`,
+    alternates: {
+      canonical: `/products/${slug}`,
+    },
 
     description: product.description,
 

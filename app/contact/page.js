@@ -8,6 +8,9 @@ import ScrollToTop from "@/components/ScrollToTop";
 
 export const metadata = {
   title: "Contact | Evermoss",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 export default function Contact() {

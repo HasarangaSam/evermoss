@@ -8,6 +8,9 @@ import { getProducts } from "@/lib/products";
 
 export const metadata = {
   title: "Artificial Flower & Plant Arrangements | Evermoss Sri Lanka",
+  alternates: {
+    canonical: "/products",
+  },
 
   description:
     "Explore Evermoss handcrafted artificial flower and plant arrangements in Sri Lanka. Discover elegant home decor pieces, custom designs, and thoughtful gifts made to add beauty, greenery, and warmth to any space.",

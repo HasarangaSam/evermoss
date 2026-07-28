@@ -5,6 +5,9 @@ import "./admin-products.css";
 
 export const metadata = {
   metadataBase: new URL("https://evermoss.com.lk"),
+  alternates: {
+    canonical: "./",
+  },
 
   title: {
     default:
