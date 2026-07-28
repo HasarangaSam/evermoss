@@ -92,14 +92,16 @@ nav a:not(.nav-cta) {
 .button {
   background: var(--ink);
   color: white;
-  padding: 13px 20px;
+  padding: 13px 26px;
   border: 0;
+  border-radius: 30px;
   display: inline-block;
   font: inherit;
   cursor: pointer;
   transition:
     transform 0.25s ease,
-    box-shadow 0.25s ease;
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
 }
 
 .nav-cta:hover {
@@ -259,8 +261,8 @@ nav a:not(.nav-cta) {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
 .product-card {

@@ -284,14 +284,14 @@ export default async function Home() {
                 <p className="eyebrow">Featured Products</p>
                 <h2>Explore Our Collection</h2>
               </div>
-              <Link href="/products" className="text-link">
+              <Link href="/products" className="view-all-products-btn">
                 View all products &rarr;
               </Link>
             </div>
           </ScrollReveal>
 
           <div className="grid featured-products-grid">
-            {products.slice(0, 3).map((p, index) => (
+            {products.slice(0, 4).map((p, index) => (
               <ScrollReveal
                 key={p.slug}
                 className="reveal-fade-up"

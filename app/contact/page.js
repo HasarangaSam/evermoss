@@ -55,8 +55,8 @@ export default function Contact() {
         {/* Contact Layout */}
         <section className="contact-redesign-layout">
           {/* Left Column */}
-          <div className="contact-info-cards">
-            <ScrollReveal className="reveal-fade-up">
+          <ScrollReveal className="reveal-fade-up">
+            <div className="contact-info-cards">
               <div className="info-card-item">
                 <div className="info-card-icon">
                   <MessageSquare size={20} />
@@ -73,9 +73,7 @@ export default function Contact() {
                   <p>Mon - Sun, 8:00 AM - 8:00 PM</p>
                 </div>
               </div>
-            </ScrollReveal>
 
-            <ScrollReveal className="reveal-fade-up" delay={100}>
               <div className="info-card-item">
                 <div className="info-card-icon">
                   <Mail size={20} />
@@ -88,9 +86,7 @@ export default function Contact() {
                   <p>We usually reply within 24 hours.</p>
                 </div>
               </div>
-            </ScrollReveal>
 
-            <ScrollReveal className="reveal-fade-up" delay={200}>
               <div className="info-card-item">
                 <div className="info-card-icon">
                   <MapPin size={20} />
@@ -107,9 +103,7 @@ export default function Contact() {
                   <p>Visits by appointment only.</p>
                 </div>
               </div>
-            </ScrollReveal>
 
-            <ScrollReveal className="reveal-fade-up" delay={300}>
               <div className="info-card-item social-card-item">
                 <div className="info-card-details">
                   <span>Connect With Us</span>
@@ -119,8 +113,8 @@ export default function Contact() {
                   <SocialButtons />
                 </div>
               </div>
-            </ScrollReveal>
-          </div>
+            </div>
+          </ScrollReveal>
 
           {/* Right Column */}
           <ScrollReveal className="reveal-fade-up" delay={150}>

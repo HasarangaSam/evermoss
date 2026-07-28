@@ -21,7 +21,7 @@ function ProductGridContent({ products = [] }) {
   const [sortOpen, setSortOpen] = useState(false);
   const sortRef = useRef(null);
 
-  const itemsPerPage = 12;
+  const itemsPerPage = 16;
 
   // Sync state with URL category parameter
   useEffect(() => {
