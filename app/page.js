@@ -107,16 +107,8 @@ export default async function Home() {
 
               <div className="hero-actions-container centered">
                 <Link href="/products" className="button primary-btn">
-                  Explore our products
+                  Explore Our Products
                 </Link>
-                <a
-                  href="https://wa.me/94711056002?text=Hi%20Evermoss!%20I'm%20interested%20in%20a%20custom%20arrangement."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-link"
-                >
-                  Custom arrangement &rarr;
-                </a>
               </div>
             </div>
           </ScrollReveal>
@@ -290,7 +282,7 @@ export default async function Home() {
             </div>
           </ScrollReveal>
 
-          <div className="grid featured-products-grid">
+          <div className="grid featured-products-grid product-grid-mobile">
             {products.slice(0, 4).map((p, index) => (
               <ScrollReveal
                 key={p.slug}

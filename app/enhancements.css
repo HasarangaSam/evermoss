@@ -535,11 +535,11 @@ footer .social-buttons a:hover {
   }
 
   /* Order the ScrollReveal wrappers: form first, info cards second */
-  .contact-redesign-layout > .reveal-item:has(.contact-form-card) {
+  .contact-redesign-layout>.reveal-item:has(.contact-form-card) {
     order: -1;
   }
 
-  .contact-redesign-layout > .reveal-item:has(.contact-info-cards) {
+  .contact-redesign-layout>.reveal-item:has(.contact-info-cards) {
     order: 1;
   }
 
@@ -1155,6 +1155,7 @@ button.nav-products-btn.active::after {
   display: flex;
   gap: 24px;
   align-items: center;
+  justify-content: center;
 }
 
 /* Core Plant Selections Section */
@@ -1929,6 +1930,38 @@ button.nav-products-btn.active::after {
   .why-grid {
     grid-template-columns: 1fr;
   }
+
+  .featured-products-grid .product-card img {
+    height: 220px;
+  }
+
+  .featured-products-grid .product-card div {
+    padding: 12px 12px 14px;
+  }
+
+  .featured-products-grid .product-card h3 {
+    font-size: 18px;
+    margin: 6px 0;
+  }
+
+  .hero-actions-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .hero-actions-container .button,
+  .hero-actions-container .primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 13px 28px;
+    font-size: 14.5px;
+    font-weight: 600;
+  }
 }
 
 /* Prominent View All Products Button on Home Page */
@@ -1942,15 +1975,14 @@ button.nav-products-btn.active::after {
   font-size: 15px;
   font-weight: 600;
   border-radius: 30px;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
   box-shadow: 0 4px 14px rgba(18, 60, 45, 0.15);
   text-decoration: none;
   white-space: nowrap;
 }
 
 .view-all-products-btn:hover {
-  background: var(--moss);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(18, 60, 45, 0.4);
   color: #ffffff !important;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(93, 118, 75, 0.25);
 }
