@@ -66,12 +66,15 @@ nav a:not(.nav-cta) {
 }
 
 .nav-cta {
-  background: #e6eb4a;
+  background: var(--cream);
   color: #123c2d !important;
   font-weight: 600;
   padding: 13px 20px;
   border: 0;
+  border-radius: 8px;
   display: inline-block;
+  position: relative;
+  top: -2px;
   font: inherit;
   cursor: pointer;
   transition:
@@ -125,7 +128,7 @@ nav a:not(.nav-cta) {
   background: #e8e8d9;
 }
 
-.hero>div:first-child {
+.hero > div:first-child {
   padding: 8vw 6vw;
   align-self: center;
 }
@@ -153,7 +156,7 @@ nav a:not(.nav-cta) {
 }
 
 .lead,
-.page-intro>p:last-child {
+.page-intro > p:last-child {
   font-size: 17px;
   line-height: 1.65;
   color: #536258;
@@ -222,7 +225,7 @@ nav a:not(.nav-cta) {
   min-height: 420px;
 }
 
-.story>div:last-child {
+.story > div:last-child {
   align-self: center;
   padding: 7vw;
 }
@@ -541,7 +544,7 @@ nav a:not(.nav-cta) {
   margin: -10px 0 24px;
 }
 
-.detail-copy>p {
+.detail-copy > p {
   line-height: 1.7;
   color: #5a685f;
 }
@@ -677,7 +680,7 @@ footer small {
   place-items: center;
 }
 
-.admin-login>div {
+.admin-login > div {
   background: #fff;
   padding: 55px;
   width: min(430px, 90vw);
@@ -796,7 +799,7 @@ footer small {
     grid-template-columns: 1fr;
   }
 
-  .hero>div:first-child {
+  .hero > div:first-child {
     padding: 80px 7vw;
   }
 
@@ -814,7 +817,7 @@ footer small {
     gap: 25px;
   }
 
-  .story>div:last-child {
+  .story > div:last-child {
     padding: 70px 7vw;
   }
 

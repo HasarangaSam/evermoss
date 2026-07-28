@@ -124,13 +124,15 @@ export default async function Home() {
 
         {/* 2. How It Works Section */}
         <section className="core-highlights-section">
-          <div className="highlights-section-heading">
-            <h2>How Evermoss Works</h2>
-            <p>
-              From your order to your doorstep, every arrangement is
-              thoughtfully handcrafted with care.
-            </p>
-          </div>
+          <ScrollReveal className="reveal-fade-up">
+            <div className="highlights-section-heading">
+              <h2>How Evermoss Works</h2>
+              <p>
+                From your order to your doorstep, every arrangement is
+                thoughtfully handcrafted with care.
+              </p>
+            </div>
+          </ScrollReveal>
 
           <div className="highlights-grid-container">
             <ScrollReveal className="reveal-fade-up" delay={100}>

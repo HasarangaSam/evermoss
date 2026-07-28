@@ -10,6 +10,7 @@ function HeaderContent() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const headerRef = useRef(null);
   const dropdownRef = useRef(null);
   const closeTimeoutRef = useRef(null);
 
@@ -20,18 +21,30 @@ function HeaderContent() {
     return pathname.startsWith(path);
   };
 
-  // Close dropdown on click outside
+  // Close mobile navbar and dropdown on touch/click outside header
   useEffect(() => {
     function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (headerRef.current && !headerRef.current.contains(event.target)) {
+        setOpen(false);
+        setDropdownOpen(false);
+      } else if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
         setDropdownOpen(false);
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
+
+    if (open || dropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("touchstart", handleClickOutside);
+    }
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
     };
-  }, []);
+  }, [open, dropdownOpen]);
 
   // Close menus on path change and track navigation path history for scroll restoration
   useEffect(() => {
@@ -70,11 +83,13 @@ function HeaderContent() {
   };
 
   const isAllProductsActive = pathname === "/products" && !categoryParam;
-  const isFlowerActive = pathname === "/products" && categoryParam === "Flower Arrangements";
-  const isLeafActive = pathname === "/products" && categoryParam === "Leaf Arrangements";
+  const isFlowerActive =
+    pathname === "/products" && categoryParam === "Flower Arrangements";
+  const isLeafActive =
+    pathname === "/products" && categoryParam === "Leaf Arrangements";
 
   return (
-    <header>
+    <header ref={headerRef}>
       <Link href="/" className="brand">
         <span>✦</span> Evermoss
       </Link>
@@ -99,7 +114,9 @@ function HeaderContent() {
             aria-expanded={dropdownOpen}
           >
             <span>Products</span>
-            <FaChevronDown className={`nav-arrow-icon ${dropdownOpen ? "rotated" : ""}`} />
+            <FaChevronDown
+              className={`nav-arrow-icon ${dropdownOpen ? "rotated" : ""}`}
+            />
           </button>
 
           <div className={`nav-dropdown-menu ${dropdownOpen ? "show" : ""}`}>
@@ -144,7 +161,7 @@ function HeaderContent() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FaWhatsapp /> WhatsApp us
+          <FaWhatsapp /> WhatsApp Us
         </a>
       </nav>
     </header>
@@ -166,6 +183,3 @@ export default function Header() {
     </Suspense>
   );
 }
-
-
-

@@ -58,6 +58,12 @@
   color: #fff;
 }
 
+footer .social-buttons a:hover {
+  background: #a8c09a;
+  color: var(--ink);
+  border-color: #a8c09a;
+}
+
 .social-buttons.compact {
   margin-top: 16px;
 }
@@ -1264,6 +1270,61 @@ button.nav-products-btn.active::after {
   line-height: 1.65;
   color: var(--muted);
   margin: 0;
+}
+
+/* How Evermoss Works - Staggered Text & Box Animation */
+.highlights-section-heading h2,
+.highlights-section-heading p {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-active .highlights-section-heading h2 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 100ms;
+}
+
+.reveal-active .highlights-section-heading p {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 240ms;
+}
+
+.highlight-column-card .highlight-number,
+.highlight-column-card .highlight-icon-box,
+.highlight-column-card h3,
+.highlight-column-card p {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-active .highlight-column-card .highlight-number {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 120ms);
+}
+
+.reveal-active .highlight-column-card .highlight-icon-box {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 200ms);
+}
+
+.reveal-active .highlight-column-card h3 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 280ms);
+}
+
+.reveal-active .highlight-column-card p {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 360ms);
 }
 
 /* Ribbon Banner */
