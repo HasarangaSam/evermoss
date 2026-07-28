@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function ProductGallery({ images = [], name }) {
@@ -9,48 +9,81 @@ export default function ProductGallery({ images = [], name }) {
 
   const [active, setActive] = useState(0);
   const imgRef = useRef(null);
+  const isControlHoveredRef = useRef(false);
+
+  const resetZoom = useCallback(() => {
+    if (imgRef.current) {
+      imgRef.current.style.transform = "scale(1)";
+      imgRef.current.style.transformOrigin = "center center";
+    }
+  }, []);
 
   // Reset gallery when product changes
   useEffect(() => {
     setActive(0);
-  }, [images]);
+    resetZoom();
+  }, [images, resetZoom]);
 
   // Reset zoom when switching images
   useEffect(() => {
-    if (imgRef.current) {
-      imgRef.current.style.transform = "scale(1)";
-      imgRef.current.style.transformOrigin = "center center";
-    }
-  }, [active]);
+    resetZoom();
+  }, [active, resetZoom]);
 
   if (!photos.length) return null;
 
-  function change(step) {
+  function change(step, e) {
+    if (e) e.stopPropagation();
+    resetZoom();
     setActive((current) => (current + step + photos.length) % photos.length);
   }
 
+  function handleSelectThumbnail(index, e) {
+    if (e) e.stopPropagation();
+    resetZoom();
+    setActive(index);
+    isControlHoveredRef.current = true;
+  }
+
   function handleMouseMove(e) {
+    if (isControlHoveredRef.current) return;
     if (!window.matchMedia("(hover: hover)").matches) return;
+
     const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - left) / width) * 100;
-    const y = ((e.clientY - top) / height) * 100;
+    const rawX = ((e.clientX - left) / width) * 100;
+    const rawY = ((e.clientY - top) / height) * 100;
+
+    // Clamp coordinates to keep zoom smooth inside bounds
+    const x = Math.max(8, Math.min(92, rawX));
+    const y = Math.max(8, Math.min(92, rawY));
+
     if (imgRef.current) {
       imgRef.current.style.transformOrigin = `${x}% ${y}%`;
+      imgRef.current.style.transform = "scale(1.65)";
     }
   }
 
   function handleMouseEnter() {
+    if (isControlHoveredRef.current) return;
     if (!window.matchMedia("(hover: hover)").matches) return;
     if (imgRef.current) {
-      imgRef.current.style.transform = "scale(2)";
+      imgRef.current.style.transform = "scale(1.65)";
     }
   }
 
   function handleMouseLeave() {
-    if (imgRef.current) {
-      imgRef.current.style.transform = "scale(1)";
-      imgRef.current.style.transformOrigin = "center center";
-    }
+    isControlHoveredRef.current = false;
+    resetZoom();
+  }
+
+  function handleControlEnter(e) {
+    if (e) e.stopPropagation();
+    isControlHoveredRef.current = true;
+    resetZoom();
+  }
+
+  function handleControlLeave(e) {
+    if (e) e.stopPropagation();
+    isControlHoveredRef.current = false;
   }
 
   return (
@@ -78,7 +111,9 @@ export default function ProductGallery({ images = [], name }) {
           <>
             <button
               className="gallery-arrow previous"
-              onClick={() => change(-1)}
+              onClick={(e) => change(-1, e)}
+              onMouseEnter={handleControlEnter}
+              onMouseLeave={handleControlLeave}
               aria-label="Previous photo"
             >
               <ChevronLeft />
@@ -86,13 +121,19 @@ export default function ProductGallery({ images = [], name }) {
 
             <button
               className="gallery-arrow next"
-              onClick={() => change(1)}
+              onClick={(e) => change(1, e)}
+              onMouseEnter={handleControlEnter}
+              onMouseLeave={handleControlLeave}
               aria-label="Next photo"
             >
               <ChevronRight />
             </button>
 
-            <span className="gallery-count">
+            <span
+              className="gallery-count"
+              onMouseEnter={handleControlEnter}
+              onMouseLeave={handleControlLeave}
+            >
               {active + 1} / {photos.length}
             </span>
           </>
@@ -105,7 +146,9 @@ export default function ProductGallery({ images = [], name }) {
             <button
               key={image}
               className={index === active ? "active" : ""}
-              onClick={() => setActive(index)}
+              onClick={(e) => handleSelectThumbnail(index, e)}
+              onMouseEnter={handleControlEnter}
+              onMouseLeave={handleControlLeave}
               aria-label={`View photo ${index + 1}`}
             >
               <Image
