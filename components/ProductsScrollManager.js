@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 export default function ProductsScrollManager() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const prevSearchParamsRef = useRef(searchParams.toString());
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -17,8 +18,25 @@ export default function ProductsScrollManager() {
       }
     };
 
+    // Intercept clicks on links navigating to a product detail page (/products/[slug])
+    const handleClick = (e) => {
+      const anchor = e.target.closest("a");
+      if (anchor) {
+        const href = anchor.getAttribute("href") || "";
+        if (href.startsWith("/products/") && href !== "/products") {
+          sessionStorage.setItem("products_scroll_y", window.scrollY.toString());
+          sessionStorage.setItem("from_product_detail", "true");
+        }
+      }
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    document.addEventListener("click", handleClick, { capture: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("click", handleClick, { capture: true });
+    };
   }, []);
 
   useEffect(() => {
@@ -29,35 +47,62 @@ export default function ProductsScrollManager() {
       window.history.scrollRestoration = "manual";
     }
 
+    const currentSearchParamsString = searchParams.toString();
+    const searchParamsChanged = prevSearchParamsRef.current !== currentSearchParamsString;
+    prevSearchParamsRef.current = currentSearchParamsString;
+
     const lastPath = sessionStorage.getItem("last_visited_path") || "";
     const currentPathInStorage = sessionStorage.getItem("current_path") || "";
 
-    // Check if user came from a product detail page (e.g. /products/bella)
+    const isFromDetailFlag = sessionStorage.getItem("from_product_detail") === "true";
     const isFromProductDetail =
-      (lastPath.startsWith("/products/") && lastPath !== "/products") ||
-      (currentPathInStorage.startsWith("/products/") &&
-        currentPathInStorage !== "/products");
+      !searchParamsChanged &&
+      (isFromDetailFlag ||
+        (lastPath.startsWith("/products/") && lastPath !== "/products") ||
+        (currentPathInStorage.startsWith("/products/") &&
+          currentPathInStorage !== "/products"));
 
     const savedScrollY = sessionStorage.getItem("products_scroll_y");
 
     if (isFromProductDetail && savedScrollY !== null) {
-      // Returning from product detail page -> restore scrolled position after DOM render
+      sessionStorage.removeItem("from_product_detail");
       const scrollY = parseInt(savedScrollY, 10);
-      const timer = setTimeout(() => {
+
+      // Instant scroll immediately + fallback timeouts for Next.js async component render
+      window.scrollTo({
+        top: scrollY,
+        left: 0,
+        behavior: "instant",
+      });
+
+      const t1 = setTimeout(() => {
         window.scrollTo({
           top: scrollY,
           left: 0,
           behavior: "instant",
         });
-      }, 50);
-      return () => clearTimeout(timer);
+      }, 40);
+
+      const t2 = setTimeout(() => {
+        window.scrollTo({
+          top: scrollY,
+          left: 0,
+          behavior: "instant",
+        });
+      }, 150);
+
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+      };
     } else {
-      // Arriving from a different page (Home, Contact, etc.) -> force scroll to top
+      // Category change or arriving from another page -> force scroll to top
+      sessionStorage.removeItem("from_product_detail");
       sessionStorage.setItem("products_scroll_y", "0");
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: "instant",
+        behavior: "smooth",
       });
     }
   }, [pathname, searchParams]);

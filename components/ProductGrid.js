@@ -176,7 +176,7 @@ function ProductGridContent({ products = [] }) {
             <input
               type="text"
               className="product-search-input"
-              placeholder="Search arrangements, code..."
+              placeholder="Search products, codes..."
               value={searchQuery}
               onChange={handleSearchChange}
               aria-label="Search products"
@@ -226,7 +226,7 @@ function ProductGridContent({ products = [] }) {
                           window.scrollTo({
                             top: 0,
                             left: 0,
-                            behavior: "instant",
+                            behavior: "smooth",
                           });
                         }
                       }}
@@ -297,9 +297,8 @@ function ProductGridContent({ products = [] }) {
                 <button
                   key={page}
                   onClick={() => handlePageChange(page)}
-                  className={`pagination-btn num-btn ${
-                    currentPage === page ? "active" : ""
-                  }`}
+                  className={`pagination-btn num-btn ${currentPage === page ? "active" : ""
+                    }`}
                   aria-label={`Go to Page ${page}`}
                 >
                   {page}

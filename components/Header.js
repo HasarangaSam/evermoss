@@ -88,6 +88,16 @@ function HeaderContent() {
   const isLeafActive =
     pathname === "/products" && categoryParam === "Leaf Arrangements";
 
+  const handleNavCategoryClick = () => {
+    setOpen(false);
+    setDropdownOpen(false);
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("from_product_detail");
+      sessionStorage.setItem("products_scroll_y", "0");
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <header ref={headerRef}>
       <Link href="/" className="brand">
@@ -123,30 +133,21 @@ function HeaderContent() {
             <Link
               href="/products"
               className={`dropdown-menu-item ${isAllProductsActive ? "active" : ""}`}
-              onClick={() => {
-                setOpen(false);
-                setDropdownOpen(false);
-              }}
+              onClick={handleNavCategoryClick}
             >
               All Products
             </Link>
             <Link
               href="/products?category=Flower%20Arrangements"
               className={`dropdown-menu-item ${isFlowerActive ? "active" : ""}`}
-              onClick={() => {
-                setOpen(false);
-                setDropdownOpen(false);
-              }}
+              onClick={handleNavCategoryClick}
             >
               Flower Arrangements
             </Link>
             <Link
               href="/products?category=Leaf%20Arrangements"
               className={`dropdown-menu-item ${isLeafActive ? "active" : ""}`}
-              onClick={() => {
-                setOpen(false);
-                setDropdownOpen(false);
-              }}
+              onClick={handleNavCategoryClick}
             >
               Leaf Arrangements
             </Link>
