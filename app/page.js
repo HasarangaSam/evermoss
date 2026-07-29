@@ -171,7 +171,34 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* 3. Why Choose Evermoss Section */}
+        {/* 3. Featured Products Grid */}
+        <section className="collection products-section-home">
+          <ScrollReveal className="reveal-fade-up">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">Featured Products</p>
+                <h2>Explore Our Collection</h2>
+              </div>
+              <Link href="/products" className="view-all-products-btn">
+                View all products &rarr;
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid featured-products-grid product-grid-mobile">
+            {products.slice(0, 4).map((p, index) => (
+              <ScrollReveal
+                key={p.slug}
+                className="reveal-fade-up"
+                delay={index * 100}
+              >
+                <ProductCard p={p} />
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+
+        {/* 4. Why Choose Evermoss Section */}
         <section className="why-choose-section">
           <ScrollReveal className="reveal-fade-up">
             <div className="why-header">
@@ -240,7 +267,7 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* 4. Brand Story Section */}
+        {/* 5. Brand Story Section */}
         <section className="story-redesign-section">
           <div className="story-split-grid">
             <ScrollReveal className="reveal-fade-up">
@@ -265,33 +292,6 @@ export default async function Home() {
                 </div>
               </div>
             </ScrollReveal>
-          </div>
-        </section>
-
-        {/* 5. Featured Products Grid */}
-        <section className="collection products-section-home">
-          <ScrollReveal className="reveal-fade-up">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">Featured Products</p>
-                <h2>Explore Our Collection</h2>
-              </div>
-              <Link href="/products" className="view-all-products-btn">
-                View all products &rarr;
-              </Link>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid featured-products-grid product-grid-mobile">
-            {products.slice(0, 4).map((p, index) => (
-              <ScrollReveal
-                key={p.slug}
-                className="reveal-fade-up"
-                delay={index * 100}
-              >
-                <ProductCard p={p} />
-              </ScrollReveal>
-            ))}
           </div>
         </section>
 

@@ -94,7 +94,10 @@ function HeaderContent() {
     if (typeof window !== "undefined") {
       sessionStorage.removeItem("from_product_detail");
       sessionStorage.setItem("products_scroll_y", "0");
+      // Always scroll to top smoothly — even when re-clicking the same active category
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      // Dispatch a custom event so the product grid can react even if the URL param hasn't changed
+      window.dispatchEvent(new CustomEvent("evermoss:category-nav"));
     }
   };
 

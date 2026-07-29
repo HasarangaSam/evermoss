@@ -2004,20 +2004,24 @@ button.nav-products-btn.active::after {
 }
 
 .why-card {
-  background: #f8faf6;
-  border: 1px solid #e3eadc;
+  background: #eff5eb;
+  border: 1px solid #d2e2c8;
+  border-radius: 12px;
   padding: 35px 25px;
   text-align: center;
+  box-shadow: 0 4px 14px rgba(45, 75, 50, 0.05);
   transition:
     transform 0.3s ease,
+    background 0.3s ease,
     box-shadow 0.3s ease,
     border-color 0.3s ease;
 }
 
 .why-card:hover {
   transform: translateY(-8px);
+  background: #e6f0e0;
   border-color: var(--moss);
-  box-shadow: 0 12px 28px rgba(93, 118, 75, 0.08);
+  box-shadow: 0 12px 28px rgba(70, 95, 55, 0.12);
 }
 
 .why-icon {

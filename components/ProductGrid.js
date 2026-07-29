@@ -21,7 +21,9 @@ function ProductGridContent({ products = [] }) {
   const [searchQuery, setSearchQuery] = useState(urlSearchParam);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOpen, setSortOpen] = useState(false);
+  const [gridVisible, setGridVisible] = useState(true);
   const sortRef = useRef(null);
+  const fadeTimerRef = useRef(null);
 
   const itemsPerPage = 16;
 
@@ -50,15 +52,46 @@ function ProductGridContent({ products = [] }) {
       }
     }
 
-    setCategory(categoryParam);
-    setSearchQuery(urlSearchParam);
-    setCurrentPage(1);
-    sessionStorage.setItem("products_current_page", "1");
+    // Fade grid out, update content, fade back in for a smooth transition
+    if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current);
+    setGridVisible(false);
+    fadeTimerRef.current = setTimeout(() => {
+      setCategory(categoryParam);
+      setSearchQuery(urlSearchParam);
+      setCurrentPage(1);
+      sessionStorage.setItem("products_current_page", "1");
+      setGridVisible(true);
+    }, 200);
 
     // Smooth scroll to top when switching categories or search
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, [categoryParam, urlSearchParam]);
+  }, [categoryParam, urlSearchParam]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Cleanup fade timer on unmount
+  useEffect(() => {
+    return () => {
+      if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current);
+    };
+  }, []);
+
+  // Listen for same-category re-click event from Header: fade grid & scroll to top
+  useEffect(() => {
+    function handleCategoryNav() {
+      if (typeof window === "undefined") return;
+      if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current);
+      setGridVisible(false);
+      setCurrentPage(1);
+      sessionStorage.setItem("products_current_page", "1");
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      fadeTimerRef.current = setTimeout(() => {
+        setGridVisible(true);
+      }, 200);
+    }
+    window.addEventListener("evermoss:category-nav", handleCategoryNav);
+    return () => {
+      window.removeEventListener("evermoss:category-nav", handleCategoryNav);
+    };
+  }, []);
 
   // Update URL search query string parameter seamlessly
   function updateUrlSearch(newQuery) {
@@ -147,16 +180,28 @@ function ProductGridContent({ products = [] }) {
   }, [sorted, currentPage]);
 
   function handlePageChange(pageNumber) {
+    if (pageNumber < 1 || pageNumber > totalPages) return;
+
     setCurrentPage(pageNumber);
 
     if (typeof window !== "undefined") {
       sessionStorage.setItem("products_current_page", pageNumber.toString());
       sessionStorage.setItem("products_scroll_y", "0");
+
       window.scrollTo({
         top: 0,
         left: 0,
         behavior: "smooth",
       });
+
+      // Extra tick fallback to ensure smooth scroll completes after DOM updates
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth",
+        });
+      }, 50);
     }
   }
 
@@ -251,38 +296,48 @@ function ProductGridContent({ products = [] }) {
       )}
 
 
-      {paginatedProducts.length > 0 ? (
-        <div className="grid full-grid product-grid-mobile">
-          {paginatedProducts.map((product) => (
-            <ProductCard key={product.slug} p={product} />
-          ))}
-        </div>
-      ) : (
-        <div className="empty-state product-empty-state">
-          <div className="empty-icon-wrap">
-            <FaMagnifyingGlass className="empty-search-icon" />
+      <div
+        style={{
+          opacity: gridVisible ? 1 : 0,
+          transition: "opacity 0.2s ease",
+          minHeight: "200px",
+        }}
+      >
+        {paginatedProducts.length > 0 ? (
+          <div className="grid full-grid product-grid-mobile">
+            {paginatedProducts.map((product) => (
+              <ProductCard key={product.slug} p={product} />
+            ))}
           </div>
-          <h3>No matching arrangements</h3>
-          <p>
-            {searchQuery
-              ? `We couldn't find anything matching "${searchQuery}". Try checking for spelling or search another keyword.`
-              : "No products found in this category yet."}
-          </p>
-          {searchQuery && (
-            <button
-              type="button"
-              className="clear-search-action-btn"
-              onClick={handleClearSearch}
-            >
-              Clear Search & View All
-            </button>
-          )}
-        </div>
-      )}
+        ) : (
+          <div className="empty-state product-empty-state">
+            <div className="empty-icon-wrap">
+              <FaMagnifyingGlass className="empty-search-icon" />
+            </div>
+            <h3>No matching arrangements</h3>
+            <p>
+              {searchQuery
+                ? `We couldn't find anything matching "${searchQuery}". Try checking for spelling or search another keyword.`
+                : "No products found in this category yet."}
+            </p>
+            {searchQuery && (
+              <button
+                type="button"
+                className="clear-search-action-btn"
+                onClick={handleClearSearch}
+              >
+                Clear Search & View All
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+
 
       {totalPages > 1 && (
         <div className="pagination">
           <button
+            type="button"
             disabled={currentPage === 1}
             onClick={() => handlePageChange(currentPage - 1)}
             className="pagination-btn arrow-btn"
@@ -296,6 +351,7 @@ function ProductGridContent({ products = [] }) {
               (page) => (
                 <button
                   key={page}
+                  type="button"
                   onClick={() => handlePageChange(page)}
                   className={`pagination-btn num-btn ${currentPage === page ? "active" : ""
                     }`}
@@ -308,6 +364,7 @@ function ProductGridContent({ products = [] }) {
           </div>
 
           <button
+            type="button"
             disabled={currentPage === totalPages}
             onClick={() => handlePageChange(currentPage + 1)}
             className="pagination-btn arrow-btn"
